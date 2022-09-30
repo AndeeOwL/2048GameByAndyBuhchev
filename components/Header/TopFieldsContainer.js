@@ -2,11 +2,14 @@ import { View, StyleSheet } from "react-native";
 import TopStats from "./Stats/TopStats";
 import TopButtons from "./Buttons/TopButtons";
 
-function TopFieldsContainer() {
+function TopFieldsContainer(props) {
   return (
     <View style={styles.topContainer}>
-      <TopStats />
-      <TopButtons />
+      <TopStats score={props.score} bestScore={props.bestScore} />
+      <TopButtons
+        onNewPress={props.onNewPress}
+        onUndoPress={props.onUndoPress}
+      />
     </View>
   );
 }

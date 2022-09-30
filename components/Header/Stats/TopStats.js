@@ -1,11 +1,11 @@
 import { StyleSheet, View } from "react-native";
 import Stat from "./Stat";
 
-function TopStats() {
+function TopStats(props) {
   return (
     <View style={styles.topStatsContainer}>
-      <Stat text={"SCORE"} value={0} />
-      <Stat text={"UNDO"} value={0} />
+      <Stat text={"SCORE"} value={props.score} />
+      <Stat text={"BEST"} value={props.bestScore} />
     </View>
   );
 }

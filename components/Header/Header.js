@@ -2,11 +2,16 @@ import { View, StyleSheet } from "react-native";
 import Logo from "./Logo/Logo";
 import TopFieldsContainer from "./TopFieldsContainer";
 
-function Header() {
+function Header(props) {
   return (
     <View style={styles.headerContainer}>
       <Logo />
-      <TopFieldsContainer />
+      <TopFieldsContainer
+        score={props.score}
+        bestScore={props.bestScore}
+        onNewPress={props.onNewPress}
+        onUndoPress={props.onUndoPress}
+      />
     </View>
   );
 }

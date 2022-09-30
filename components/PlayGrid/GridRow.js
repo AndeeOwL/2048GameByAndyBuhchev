@@ -1,12 +1,12 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import NumberField from "./NumberField";
 
-function GridRow() {
+function GridRow(props) {
   return (
     <View style={styles.gridRowContainer}>
-      {Array.from(
-        [0, 1, 2, 3].map(() => <NumberField key={Math.random().toString()} />)
-      )}
+      {props.rowValues.map((value) => (
+        <NumberField key={Math.random().toString()} value={value} />
+      ))}
     </View>
   );
 }

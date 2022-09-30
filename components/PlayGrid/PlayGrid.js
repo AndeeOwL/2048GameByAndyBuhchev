@@ -2,16 +2,10 @@ import { StyleSheet, Pressable } from "react-native";
 import GridRow from "./GridRow";
 
 function PlayGrid(props) {
-  for (let i = 0; i >= 3; i++) {
-    console.log(props.gameValues[i]);
-  }
   return (
     <Pressable style={styles.gridContainer}>
-      {props.gameValues.map((i) => (
-        <GridRow
-          key={Math.random().toString()}
-          rowValues={props.gameValues[i]}
-        />
+      {props.gameValues.map((rowArr) => (
+        <GridRow key={Math.random().toString()} rowValues={rowArr} />
       ))}
     </Pressable>
   );

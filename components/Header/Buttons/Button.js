@@ -3,7 +3,9 @@ import { StyleSheet, Text, Pressable } from "react-native";
 function Button(props) {
   return (
     <Pressable style={styles.topButton}>
-      <Text style={styles.topButtonText}>{props.value}</Text>
+      <Text onPress={props.onPress} style={styles.topButtonText}>
+        {props.value}
+      </Text>
     </Pressable>
   );
 }

@@ -1,10 +1,10 @@
 import { StyleSheet, View, Text } from "react-native";
 
-function BottomStats() {
+function BottomStats(props) {
   return (
     <View style={styles.statsContainer}>
-      <Text style={styles.statsText}>0 moves</Text>
-      <Text style={styles.statsText}>0:10</Text>
+      <Text style={styles.statsText}>{props.moves} moves</Text>
+      <Text style={styles.statsText}>{props.timer}</Text>
     </View>
   );
 }

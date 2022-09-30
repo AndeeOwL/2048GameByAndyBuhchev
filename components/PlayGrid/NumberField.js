@@ -1,9 +1,16 @@
 import { View, Text, StyleSheet } from "react-native";
+import { stylingService } from "/services/stylingService";
 
-function NumberField() {
+function NumberField(props) {
   return (
-    <View style={styles.gridTextContainer}>
-      <Text style={styles.gridText}>0</Text>
+    <View
+      style={
+        props.value === 0
+          ? styles.gridTextContainer
+          : stylingService(props.value)
+      }
+    >
+      {props.value !== 0 && <Text style={styles.gridText}>{props.value}</Text>}
     </View>
   );
 }
@@ -23,5 +30,13 @@ const styles = StyleSheet.create({
     fontSize: 35,
     fontWeight: "bold",
     color: "#4d4646",
+  },
+  gridTextContainerIfNumberIs2: {
+    flex: 1,
+    backgroundColor: "#ebe8da",
+    margin: 5,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

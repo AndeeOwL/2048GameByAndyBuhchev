@@ -1,11 +1,11 @@
 import { View, StyleSheet } from "react-native";
 import Button from "./Button";
 
-function topButtons() {
+function topButtons(props) {
   return (
     <View style={styles.topButtonsContainer}>
-      <Button value={"NEW"} />
-      <Button value={"UNDO"} />
+      <Button onPress={props.onNewPress} value={"NEW"} />
+      <Button onPress={props.onUndoPress} value={"UNDO"} />
     </View>
   );
 }
