@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet } from "react-native";
-import { stylingService } from "/services/stylingService";
 
 function NumberField(props) {
   return (
@@ -7,7 +6,7 @@ function NumberField(props) {
       style={
         props.value === 0
           ? styles.gridTextContainer
-          : stylingService(props.value)
+          : styles.gridTextContainerIfNumberIs2
       }
     >
       {props.value !== 0 && <Text style={styles.gridText}>{props.value}</Text>}

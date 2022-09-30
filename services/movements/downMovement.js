@@ -1,4 +1,4 @@
-import { showRandom } from "./showRandom";
+import { showRandom } from "../showRandom";
 
 export function downMovement(gameValues, score) {
   let win = false;
