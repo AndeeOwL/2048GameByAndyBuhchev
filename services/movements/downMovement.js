@@ -1,6 +1,7 @@
 import { showRandom } from "../showRandom";
 
 export function downMovement(gameValues, score) {
+  let isChanged = false;
   let win = false;
   let curScore = score;
   for (let i = 0; i < 4; i++) {
@@ -12,6 +13,7 @@ export function downMovement(gameValues, score) {
         if (gameValues[k + 1][i] === 0) {
           gameValues[k + 1][i] = gameValues[k][i];
           gameValues[k][i] = 0;
+          isChanged=true;
         } else if (
           gameValues[k + 1][i] === gameValues[k][i] &&
           mergedNumbers[k + 1] === 0
@@ -23,11 +25,14 @@ export function downMovement(gameValues, score) {
           if (gameValues[k + 1][i] === 2048) {
             win = true;
           }
+          isChanged = true;
           break;
         }
       }
     }
   }
+  if(isChanged){
   showRandom(gameValues);
+  }
   return [[...gameValues], win, curScore];
 }

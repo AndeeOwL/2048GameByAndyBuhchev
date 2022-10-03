@@ -7,9 +7,9 @@ export function checkGameOver(gameValues) {
         return false;
       } else if (i != 3 && gameValues[i][j] === gameValues[i + 1][j]) {
         return false;
-      } else if (i != 0 && gameValues[i][j] === gameValues[i][j - 1]) {
+      } else if (j != 0 && gameValues[i][j] === gameValues[i][j - 1]) {
         return false;
-      } else if (i != 3 && gameValues[i][j] === gameValues[i][j + 1]) {
+      } else if (j != 3 && gameValues[i][j] === gameValues[i][j + 1]) {
         return false;
       }
     }

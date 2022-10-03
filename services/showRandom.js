@@ -1,7 +1,7 @@
 import { checkGameOver } from "./checkGameOver";
 
 export function showRandom(gameValues) {
-  checkGameOver();
+  checkGameOver(gameValues);
   let row = 0;
   let col = 0;
 
@@ -12,7 +12,7 @@ export function showRandom(gameValues) {
   {
     const value = Math.random() < 0.5 ? 4 : 2;
     gameValues[row][col] = value;
-    checkGameOver();
+    checkGameOver(gameValues);
     return gameValues[row][col];
   }
 }
