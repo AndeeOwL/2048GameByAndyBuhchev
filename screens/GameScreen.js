@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import BottomStats from "../components/BottomStats";
 import Header from "../components/Header/Header";
@@ -13,8 +13,10 @@ import { rightMovement } from "../services/movements/rightMovement";
 import { upMovement } from "../services/movements/upMovement";
 import { downMovement } from "../services/movements/downMovement";
 import { bestScoreChecker } from "../services/bestScoreChecker";
+import { useNavigation } from "@react-navigation/native";
 
 function GameScreen() {
+  const navigation = useNavigation();
   const [gameValues, setGameValues] = useState([
     [0, 0, 0, 2],
     [0, 0, 0, 0],
@@ -92,10 +94,10 @@ function GameScreen() {
   };
 
   if (win) {
-    console.log("You win");
+    navigation.navigate("RetryScreen");
   }
   if (lose) {
-    console.log("You Lost");
+    navigation.navigate("RetryScreen");
   }
 
   return (
