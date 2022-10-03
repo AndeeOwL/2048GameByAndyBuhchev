@@ -18,7 +18,7 @@ function GameScreen() {
   const [gameValues, setGameValues] = useState([
     [0, 0, 0, 2],
     [0, 0, 0, 0],
-    [2, 0, 0, 0],
+    [0, 2, 0, 0],
     [0, 0, 0, 0],
   ]);
   const [score, setScore] = useState(0);
@@ -27,13 +27,6 @@ function GameScreen() {
   const [timer, setTimer] = useState("00:00");
   const [win, setWin] = useState(false);
   const [lose, setLose] = useState(false);
-
-  const isTrue = useCallback(() => {
-    checkGameOver(gameValues);
-    if (isTrue) {
-      setLose(false);
-    }
-  }, [lose]);
 
   const onNewPress = () => {
     let reset = onNewButtonPress();
@@ -52,30 +45,38 @@ function GameScreen() {
   const onSwipeUp = () => {
     let result = upMovement(gameValues, score);
     setGameValues(result[0]);
-    setScore(result[1]);
-    setWin(result[2]);
+    setScore(result[2]);
+    setWin(result[1]);
     setMoves(moves + 1);
+    let gameover = checkGameOver(gameValues);
+    setLose(gameover);
   };
   const onSwipeDown = () => {
     let result = downMovement(gameValues, score);
     setGameValues(result[0]);
-    setScore(result[1]);
-    setWin(result[2]);
+    setScore(result[2]);
+    setWin(result[1]);
     setMoves(moves + 1);
+    let gameover = checkGameOver(gameValues);
+    setLose(gameover);
   };
   const onSwipeLeft = () => {
     let result = leftMovement(gameValues, score);
     setGameValues(result[0]);
-    setScore(result[1]);
-    setWin(result[2]);
+    setScore(result[2]);
+    setWin(result[1]);
     setMoves(moves + 1);
+    let gameover = checkGameOver(gameValues);
+    setLose(gameover);
   };
   const onSwipeRight = () => {
     let result = rightMovement(gameValues, score);
     setGameValues(result[0]);
-    setScore(result[1]);
-    setWin(result[2]);
+    setScore(result[2]);
+    setWin(result[1]);
     setMoves(moves + 1);
+    let gameover = checkGameOver(gameValues);
+    setLose(gameover);
   };
 
   const config = {
@@ -89,6 +90,13 @@ function GameScreen() {
       setBestScore(score);
     }
   };
+
+  if (win) {
+    console.log("You win");
+  }
+  if (lose) {
+    console.log("You Lost");
+  }
 
   return (
     <View style={styles.rootContainer}>
