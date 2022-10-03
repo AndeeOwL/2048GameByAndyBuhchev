@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const stylesGlobal = StyleSheet.create({
+const stylesGlobal = StyleSheet.create({
   gridTextContainerIfNumberIs2: {
     flex: 1,
     backgroundColor: "#ebe8da",
@@ -81,6 +81,11 @@ export const stylesGlobal = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  textContainerIfNumberIs1024: {
+    fontSize: 26,
+    fontWeight: "bold",
+    color: "#4d4646",
+  },
   gridTextContainerIfNumberIs2048: {
     flex: 1,
     backgroundColor: "#f7ce52",
@@ -89,4 +94,11 @@ export const stylesGlobal = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  textContainerIfNumberIs2048: {
+    fontSize: 26,
+    fontWeight: "bold",
+    color: "#4d4646",
+  },
 });
+
+export { stylesGlobal };

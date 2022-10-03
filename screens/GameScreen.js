@@ -18,7 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 function GameScreen() {
   const navigation = useNavigation();
   const [gameValues, setGameValues] = useState([
-    [0, 0, 0, 2],
+    [2, 0, 0, 2],
     [0, 0, 0, 0],
     [0, 2, 0, 0],
     [0, 0, 0, 0],
@@ -29,6 +29,13 @@ function GameScreen() {
   const [timer, setTimer] = useState("00:00");
   const [win, setWin] = useState(false);
   const [lose, setLose] = useState(false);
+
+  if (win) {
+    navigation.navigate("RetryScreen");
+  }
+  if (lose) {
+    navigation.navigate("RetryScreen");
+  }
 
   const onNewPress = () => {
     let reset = onNewButtonPress();
@@ -92,13 +99,6 @@ function GameScreen() {
       setBestScore(score);
     }
   };
-
-  if (win) {
-    navigation.navigate("RetryScreen");
-  }
-  if (lose) {
-    navigation.navigate("RetryScreen");
-  }
 
   return (
     <View style={styles.rootContainer}>
