@@ -17,6 +17,7 @@ export default function App() {
             component={GameScreen}
             options={{
               headerShown: false,
+              animationEnabled: false,
             }}
           />
           <Stack.Screen
@@ -24,6 +25,7 @@ export default function App() {
             component={RetryScreen}
             options={{
               headerShown: false,
+              animationEnabled: false,
             }}
           />
         </Stack.Navigator>

@@ -1,5 +1,5 @@
-export function bestScoreChecker(score, bestScore, win, lose) {
-  if ((win || lose) && score > bestScore) {
+export function bestScoreChecker(score, bestScore) {
+  if (score > bestScore) {
     return true;
   } else {
     return false;
