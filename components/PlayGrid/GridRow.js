@@ -4,8 +4,15 @@ import NumberField from "./NumberField";
 function GridRow(props) {
   return (
     <View style={styles.gridRowContainer}>
-      {props.rowValues.map((value) => (
-        <NumberField key={Math.random().toString()} value={value} />
+      {props.rowValues.map((value, index) => (
+        <NumberField
+          key={Math.random().toString()}
+          value={value}
+          steps={props.steps[index]}
+          direction={props.direction}
+          isMerged={props.isMerged[index]}
+          isNew={props.isNew[index]}
+        />
       ))}
     </View>
   );

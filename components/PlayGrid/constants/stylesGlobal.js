@@ -1,9 +1,7 @@
 import { StyleSheet } from "react-native";
 
 const stylesGlobal = StyleSheet.create({
-  gridTextContainerIfNumberIs0: {
-    backgroundColor: "#c9bdbd",
-  },
+  gridTextContainerIfNumberIs0: {},
   gridTextContainerIfNumberIs2: {
     backgroundColor: "#ebe8da",
   },

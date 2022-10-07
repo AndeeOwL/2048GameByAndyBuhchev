@@ -13,6 +13,6 @@ export function showRandom(gameValues) {
     const value = Math.random() < 0.5 ? 4 : 2;
     gameValues[row][col] = value;
     checkGameOver(gameValues);
-    return gameValues[row][col];
+    return [value, row, col];
   }
 }

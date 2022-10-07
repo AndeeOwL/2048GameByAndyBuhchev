@@ -4,8 +4,15 @@ import GridRow from "./GridRow";
 function PlayGrid(props) {
   return (
     <Pressable style={styles.gridContainer}>
-      {props.gameValues.map((rowArr) => (
-        <GridRow key={Math.random().toString()} rowValues={rowArr} />
+      {props.gameValues.map((rowArr, index) => (
+        <GridRow
+          key={Math.random().toString()}
+          rowValues={rowArr}
+          steps={props.steps[index]}
+          direction={props.direction}
+          isMerged={props.isMerged[index]}
+          isNew={props.isNew[index]}
+        />
       ))}
     </Pressable>
   );
@@ -17,7 +24,7 @@ const styles = StyleSheet.create({
   gridContainer: {
     flex: 1.5,
     borderRadius: 5,
-    backgroundColor: "#917c7c",
-    padding: 5,
+    backgroundColor: "#c9bdbd",
+    overflow: "hidden",
   },
 });

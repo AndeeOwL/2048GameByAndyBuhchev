@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import BottomStats from "../components/BottomStats";
 import Header from "../components/Header/Header";
@@ -20,7 +20,7 @@ function GameScreen() {
   const [gameValues, setGameValues] = useState([
     [0, 0, 0, 2],
     [0, 0, 0, 0],
-    [0, 2, 0, 0],
+    [2, 0, 0, 0],
     [0, 0, 0, 0],
   ]);
   const [score, setScore] = useState(0);
@@ -29,6 +29,25 @@ function GameScreen() {
   const [timer, setTimer] = useState("00:00");
   const [win, setWin] = useState(false);
   const [lose, setLose] = useState(false);
+  const [direction, setDirection] = useState("");
+  const [isMerged, setIsMerged] = useState([
+    [false, false, false, false],
+    [false, false, false, false],
+    [false, false, false, false],
+    [false, false, false, false],
+  ]);
+  const [isNew, setIsNew] = useState([
+    [false, false, false, false],
+    [false, false, false, false],
+    [false, false, false, false],
+    [false, false, false, false],
+  ]);
+  const [steps, setSteps] = useState([
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ]);
 
   const onNewPress = () => {
     let reset = onNewButtonPress();
@@ -47,36 +66,52 @@ function GameScreen() {
   const onSwipeUp = () => {
     let result = upMovement(gameValues, score);
     setGameValues(result[0]);
-    setScore(result[2]);
     setWin(result[1]);
+    setScore(result[2]);
+    setIsNew(result[3]);
+    setIsMerged(result[4]);
+    setSteps(result[5]);
     setMoves(moves + 1);
+    setDirection("UP");
     let gameover = checkGameOver(gameValues);
     setLose(gameover);
   };
   const onSwipeDown = () => {
     let result = downMovement(gameValues, score);
     setGameValues(result[0]);
-    setScore(result[2]);
     setWin(result[1]);
+    setScore(result[2]);
+    setIsNew(result[3]);
+    setIsMerged(result[4]);
+    setSteps(result[5]);
     setMoves(moves + 1);
+    setDirection("DOWN");
     let gameover = checkGameOver(gameValues);
     setLose(gameover);
   };
   const onSwipeLeft = () => {
     let result = leftMovement(gameValues, score);
     setGameValues(result[0]);
-    setScore(result[2]);
     setWin(result[1]);
+    setScore(result[2]);
+    setIsNew(result[3]);
+    setIsMerged(result[4]);
+    setSteps(result[5]);
     setMoves(moves + 1);
+    setDirection("LEFT");
     let gameover = checkGameOver(gameValues);
     setLose(gameover);
   };
   const onSwipeRight = () => {
     let result = rightMovement(gameValues, score);
     setGameValues(result[0]);
-    setScore(result[2]);
     setWin(result[1]);
+    setScore(result[2]);
+    setIsNew(result[3]);
+    setIsMerged(result[4]);
+    setSteps(result[5]);
     setMoves(moves + 1);
+    setDirection("RIGHT");
     let gameover = checkGameOver(gameValues);
     setLose(gameover);
   };
@@ -93,30 +128,35 @@ function GameScreen() {
     }
   };
 
-  if (win) {
-    checkBestScore();
-    navigation.navigate("RetryScreen", {
-      text: "You Win!",
-      score: score,
-      moves: moves,
-      time: timer,
-      gameValues: gameValues,
-      onNewPress: onNewPress,
-      onUndoPress: onUndoPress,
-    });
-  }
-  if (lose) {
-    checkBestScore();
-    navigation.navigate("RetryScreen", {
-      text: "Game Over!",
-      score: score,
-      moves: moves,
-      time: timer,
-      values: gameValues,
-      onNew: onNewPress,
-      onUndo: onUndoPress,
-    });
-  }
+  useEffect(() => {
+    if (win) {
+      checkBestScore();
+      navigation.navigate("RetryScreen", {
+        text: "You Win!",
+        score: score,
+        moves: moves,
+        time: timer,
+        gameValues: gameValues,
+        onNewPress: onNewPress,
+        onUndoPress: onUndoPress,
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (lose) {
+      checkBestScore();
+      navigation.navigate("RetryScreen", {
+        text: "Game Over!",
+        score: score,
+        moves: moves,
+        time: timer,
+        values: gameValues,
+        onNew: onNewPress,
+        onUndo: onUndoPress,
+      });
+    }
+  }, []);
 
   return (
     <View style={styles.rootContainer}>
@@ -135,7 +175,13 @@ function GameScreen() {
         onSwipeRight={onSwipeRight}
         style={styles.gridContainer}
       >
-        <PlayGrid gameValues={gameValues} />
+        <PlayGrid
+          gameValues={gameValues}
+          steps={steps}
+          direction={direction}
+          isMerged={isMerged}
+          isNew={isNew}
+        />
       </GestureRecognizer>
       <BottomStats moves={moves} timer={timer} />
     </View>
@@ -154,6 +200,7 @@ const styles = StyleSheet.create({
     flex: 1.5,
     borderRadius: 5,
     backgroundColor: "#917c7c",
-    padding: 5,
+
+    overflow: "hidden",
   },
 });
