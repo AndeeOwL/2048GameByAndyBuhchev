@@ -128,6 +128,7 @@ function GameScreen() {
     }
   };
 
+  // NOT TAKING EFFECT
   useEffect(() => {
     if (win) {
       checkBestScore();
@@ -143,6 +144,7 @@ function GameScreen() {
     }
   }, []);
 
+  //NOT TAKING EFFECT
   useEffect(() => {
     if (lose) {
       checkBestScore();

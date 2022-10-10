@@ -5,86 +5,200 @@ import Animated, {
   useSharedValue,
   withTiming,
   withSpring,
+  FadeIn,
+  FadeOutRight,
+  ZoomIn,
+  FadeOutDown,
+  FadeInDown,
+  SlideInRight,
+  SlideInUp,
+  SlideInDown,
+  SlideInLeft,
+  SlideOutRight,
+  SlideOutLeft,
 } from "react-native-reanimated";
 import { moveAnimationService } from "./service/moveAnimationService";
 import { useEffect, useLayoutEffect } from "react";
 
 function NumberField(props) {
-  let isMerged = props.isMerged;
-  let isNew = props.isMerged;
   let isMoved = false;
-  let steps = props.steps;
-  let direction = props.direction;
+  let isPoped = false;
   let customGridStyle = styleService(props.value)[0];
   let customTextStyle = styleService(props.value)[1];
-  const offsetX = useSharedValue(0);
-  const offsetY = useSharedValue(0);
-  const opacity = useSharedValue(1);
-  const scale = useSharedValue(0);
 
-  if (steps !== 0) {
+  //SHARED VALUES
+
+  // const offsetX = useSharedValue(0);
+  // const offsetY = useSharedValue(0);
+  // const opacity = useSharedValue(1);
+  // const scale = useSharedValue(0);
+
+  if (props.steps !== 0) {
     isMoved = true;
   }
 
-  const animatedStyles = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: offsetX.value }, { translateY: offsetY.value }],
-      opacity: opacity.value,
-    };
-  }, []);
-  const animatedTextStyles = useAnimatedStyle(() => {
-    return {
-      transform: [{ scale: scale.value }],
-    };
-  }, []);
-
-  if (isNew === true || isMerged === true) {
-    useLayoutEffect(() => {
-      scale.value = withSpring(1);
-    }, []);
+  if (props.isNew === true || props.isMerged === true) {
+    isPoped = true;
   }
 
-  if (isMoved === true) {
-    useLayoutEffect(() => {
-      const move = moveAnimationService(direction, steps);
+  // ANIMATIONS WITH SHARED VALUE
 
-      if (direction === "LEFT" || direction === "RIGHT") {
-        offsetX.value = withTiming(move, { duration: 100 });
-      } else if (direction === "UP" || direction === "DOWN") {
-        offsetY.value = withTiming(move, { duration: 100 });
-      }
+  // const animatedStyles = useAnimatedStyle(() => {
+  //   return {
+  //     transform: [{ translateX: offsetX.value }, { translateY: offsetY.value }],
+  //     opacity: opacity.value,
+  //   };
+  // }, []);
 
-      opacity.value = withTiming(0, { duration: 100 });
-    }, []);
+  // const animatedTextStyles = useAnimatedStyle(() => {
+  //   return {
+  //     transform: [{ scale: scale.value }],
+  //   };
+  // }, []);
+
+  // useLayoutEffect(() => {
+  //   if (isMoved === true) {
+  //     const move = moveAnimationService(props.direction, props.steps);
+
+  //     if (props.direction === "LEFT" || props.direction === "RIGHT") {
+  //       offsetX.value = withTiming(move, { duration: 200 });
+  //     } else if (props.direction === "UP" || props.direction === "DOWN") {
+  //       offsetY.value = withTiming(move, { duration: 200 });
+  //     }
+
+  //     opacity.value = withTiming(0, { duration: 200 });
+  //   }
+  // }, []);
+
+  // useLayoutEffect(() => {
+  //   if (props.isNew === true || props.isMerged === true) {
+  //     scale.value = withSpring(1);
+  //   }
+  // }, []);
+
+  //   return (
+  //     <View style={styles.border}>
+  //       <Animated.View
+  //         style={
+  //           isMoved
+  //             ? [styles.gridTextContainer, customGridStyle, animatedStyles]
+  //             : [styles.gridTextContainer, customGridStyle]
+  //         }
+  //       >
+  //         {props.value === 0 ? (
+  //           <Animated.Text
+  //             style={
+  //               props.isNew
+  //                 ? [customTextStyle, animatedTextStyles]
+  //                 : customTextStyle
+  //             }
+  //           ></Animated.Text>
+  //         ) : (
+  //           <Animated.Text
+  //             style={
+  //               props.isNew
+  //                 ? [customTextStyle, animatedTextStyles]
+  //                 : customTextStyle
+  //             }
+  //           >
+  //             {props.value}
+  //           </Animated.Text>
+  //         )}
+  //       </Animated.View>
+  //     </View>
+  //   );
+  // }
+
+  // ANIMATIONS WITH LAYOUT ANIMATION
+
+  if (props.direction === "UP") {
+    return (
+      <View style={styles.border}>
+        <Animated.View
+          entering={isMoved && SlideInDown}
+          style={[styles.gridTextContainer, customGridStyle]}
+        >
+          {props.value === 0 ? (
+            <Animated.Text style={customTextStyle}></Animated.Text>
+          ) : (
+            <Animated.Text entering={isPoped && ZoomIn} style={customTextStyle}>
+              {props.value}
+            </Animated.Text>
+          )}
+        </Animated.View>
+      </View>
+    );
   }
 
-  return (
-    <View style={styles.border}>
-      <Animated.View
-        style={
-          isMoved
-            ? [styles.gridTextContainer, customGridStyle, animatedStyles]
-            : [styles.gridTextContainer, customGridStyle]
-        }
-      >
-        {props.value === 0 ? (
-          <Animated.Text
-            style={
-              isNew ? [customTextStyle, animatedTextStyles] : customTextStyle
-            }
-          ></Animated.Text>
-        ) : (
-          <Animated.Text
-            style={
-              isNew ? [customTextStyle, animatedTextStyles] : customTextStyle
-            }
-          >
-            {props.value}
-          </Animated.Text>
-        )}
-      </Animated.View>
-    </View>
-  );
+  if (props.direction === "DOWN") {
+    return (
+      <View style={styles.border}>
+        <Animated.View
+          entering={isMoved && SlideInUp}
+          style={[styles.gridTextContainer, customGridStyle]}
+        >
+          {props.value === 0 ? (
+            <Animated.Text style={customTextStyle}></Animated.Text>
+          ) : (
+            <Animated.Text entering={isPoped && ZoomIn} style={customTextStyle}>
+              {props.value}
+            </Animated.Text>
+          )}
+        </Animated.View>
+      </View>
+    );
+  }
+
+  if (props.direction === "LEFT") {
+    return (
+      <View style={styles.border}>
+        <Animated.View
+          entering={isMoved && SlideInRight}
+          style={[styles.gridTextContainer, customGridStyle]}
+        >
+          {props.value === 0 ? (
+            <Animated.Text style={customTextStyle}></Animated.Text>
+          ) : (
+            <Animated.Text entering={isPoped && ZoomIn} style={customTextStyle}>
+              {props.value}
+            </Animated.Text>
+          )}
+        </Animated.View>
+      </View>
+    );
+  }
+
+  if (props.direction === "RIGHT") {
+    return (
+      <View style={styles.border}>
+        <Animated.View
+          entering={props.steps > 0 && SlideInLeft}
+          style={[styles.gridTextContainer, customGridStyle]}
+        >
+          {props.value === 0 ? (
+            <Animated.Text style={customTextStyle}></Animated.Text>
+          ) : (
+            <Animated.Text entering={isPoped && ZoomIn} style={customTextStyle}>
+              {props.value}
+            </Animated.Text>
+          )}
+        </Animated.View>
+      </View>
+    );
+  }
+  if (props.direction === "") {
+    return (
+      <View style={styles.border}>
+        <Animated.View style={[styles.gridTextContainer, customGridStyle]}>
+          {props.value === 0 ? (
+            <Animated.Text style={customTextStyle}></Animated.Text>
+          ) : (
+            <Animated.Text style={customTextStyle}>{props.value}</Animated.Text>
+          )}
+        </Animated.View>
+      </View>
+    );
+  }
 }
 
 export default NumberField;
