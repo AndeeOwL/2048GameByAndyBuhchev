@@ -1,11 +1,15 @@
 import { StyleSheet, View } from "react-native";
+import { useSelector } from "react-redux";
 import Stat from "./Stat";
 
-function TopStats(props) {
+function TopStats() {
+  const { score } = useSelector((state) => state.score);
+  const { bestScore } = useSelector((state) => state.bestScore);
+
   return (
     <View style={styles.topStatsContainer}>
-      <Stat text={"SCORE"} value={props.score} />
-      <Stat text={"BEST"} value={props.bestScore} />
+      <Stat text={"SCORE"} value={score} />
+      <Stat text={"BEST"} value={bestScore} />
     </View>
   );
 }

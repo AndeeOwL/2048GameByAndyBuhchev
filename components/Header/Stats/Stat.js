@@ -1,4 +1,6 @@
 import { StyleSheet, View, Text } from "react-native";
+import { Colors } from "../../common/Colors";
+import { Fonts } from "../../common/Fonts";
 
 function Stat(props) {
   return (
@@ -14,15 +16,15 @@ export default Stat;
 const styles = StyleSheet.create({
   scoreContainer: {
     flex: 1,
-    backgroundColor: "#2e2d2a",
+    backgroundColor: Colors.mediumBlack,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
     marginLeft: 10,
   },
   scoreText: {
-    color: "#fcfcfc",
+    color: "white",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: Fonts.small,
   },
 });

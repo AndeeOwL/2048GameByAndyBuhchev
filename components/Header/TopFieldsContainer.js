@@ -5,7 +5,7 @@ import TopButtons from "./Buttons/TopButtons";
 function TopFieldsContainer(props) {
   return (
     <View style={styles.topContainer}>
-      <TopStats score={props.score} bestScore={props.bestScore} />
+      <TopStats />
       <TopButtons
         onNewPress={props.onNewPress}
         onUndoPress={props.onUndoPress}

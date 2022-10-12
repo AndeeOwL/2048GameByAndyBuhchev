@@ -1,4 +1,6 @@
 import { StyleSheet, View, Text } from "react-native";
+import { Colors } from "../../common/Colors";
+import { Fonts } from "../../common/Fonts";
 
 function Logo() {
   return (
@@ -13,14 +15,14 @@ export default Logo;
 const styles = StyleSheet.create({
   logoContainer: {
     flex: 0.5,
-    backgroundColor: "#f7ce52",
+    backgroundColor: Colors.mediumYellow,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 5,
   },
   logoText: {
-    color: "#fcfcfc",
+    color: "white",
     fontWeight: "bold",
-    fontSize: 32,
+    fontSize: Fonts.big,
   },
 });

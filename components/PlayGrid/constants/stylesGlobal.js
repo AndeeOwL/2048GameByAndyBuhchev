@@ -1,55 +1,57 @@
 import { StyleSheet } from "react-native";
+import { Colors } from "../../common/Colors";
+import { Fonts } from "../../common/Fonts";
 
-const stylesGlobal = StyleSheet.create({
+const StylesGlobal = StyleSheet.create({
   gridTextContainerIfNumberIs0: {},
   gridTextContainerIfNumberIs2: {
-    backgroundColor: "#ebe8da",
+    backgroundColor: Colors.color2,
   },
   gridTextContainerIfNumberIs4: {
-    backgroundColor: "#e0dbc1",
+    backgroundColor: Colors.color4,
   },
   gridTextContainerIfNumberIs8: {
-    backgroundColor: "#f5a164",
+    backgroundColor: Colors.color8,
   },
   gridTextContainerIfNumberIs16: {
-    backgroundColor: "#ed8a42",
+    backgroundColor: Colors.color16,
   },
   gridTextContainerIfNumberIs32: {
-    backgroundColor: "#f06c5d",
+    backgroundColor: Colors.color32,
   },
   gridTextContainerIfNumberIs64: {
-    backgroundColor: "#ed4f3e",
+    backgroundColor: Colors.color64,
   },
   gridTextContainerIfNumberIs128: {
-    backgroundColor: "#ede191",
+    backgroundColor: Colors.color128,
   },
   gridTextContainerIfNumberIs256: {
-    backgroundColor: "#fae873",
+    backgroundColor: Colors.color256,
   },
   gridTextContainerIfNumberIs512: {
-    backgroundColor: "#f2dd55",
+    backgroundColor: Colors.color512,
   },
   gridTextContainerIfNumberIs1024: {
-    backgroundColor: "#f5db31",
+    backgroundColor: Colors.color1024,
   },
   textContainerIfNumberIs1024: {
-    fontSize: 26,
+    fontSize: Fonts.medium,
     fontWeight: "bold",
-    color: "#4d4646",
+    color: Colors.darkBrown,
   },
   gridTextContainerIfNumberIs2048: {
-    backgroundColor: "#f7ce52",
+    backgroundColor: Colors.color2048,
   },
   textContainerIfNumberIs2048: {
-    fontSize: 26,
+    fontSize: Fonts.medium,
     fontWeight: "bold",
-    color: "#4d4646",
+    color: Colors.darkBrown,
   },
   gridText: {
-    fontSize: 35,
+    fontSize: Fonts.extraBig,
     fontWeight: "bold",
-    color: "#4d4646",
+    color: Colors.darkBrown,
   },
 });
 
-export { stylesGlobal };
+export { StylesGlobal };

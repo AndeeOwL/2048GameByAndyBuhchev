@@ -8,7 +8,7 @@ export function onNewButtonPress() {
     ],
     0,
     0,
-    "00:00",
+    0,
     false,
     false,
   ];

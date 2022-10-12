@@ -1,4 +1,6 @@
 import { StyleSheet, Text, Pressable } from "react-native";
+import { Colors } from "../../common/Colors";
+import { Fonts } from "../../common/Fonts";
 
 function Button(props) {
   return (
@@ -15,15 +17,15 @@ export default Button;
 const styles = StyleSheet.create({
   topButton: {
     flex: 1,
-    backgroundColor: "#f26249",
+    backgroundColor: Colors.mediumOrange,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
     marginLeft: 10,
   },
   topButtonText: {
-    color: "#fcfcfc",
+    color: "white",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: Fonts.small,
   },
 });

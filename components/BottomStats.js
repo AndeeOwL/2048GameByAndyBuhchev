@@ -1,10 +1,15 @@
 import { StyleSheet, View, Text } from "react-native";
+import { useSelector } from "react-redux";
+import { Colors } from "./common/Colors";
+import { Fonts } from "./common/Fonts";
 
-function BottomStats(props) {
+function BottomStats() {
+  const { moves } = useSelector((state) => state.moves);
+  const { timer } = useSelector((state) => state.timer);
   return (
     <View style={styles.statsContainer}>
-      <Text style={styles.statsText}>{props.moves} moves</Text>
-      <Text style={styles.statsText}>{props.timer}</Text>
+      <Text style={styles.statsText}>{moves} moves</Text>
+      <Text style={styles.statsText}>{timer} seconds</Text>
     </View>
   );
 }
@@ -20,7 +25,7 @@ const styles = StyleSheet.create({
   },
   statsText: {
     fontWeight: "bold",
-    fontSize: 16,
-    color: "#917c7c",
+    fontSize: Fonts.small,
+    color: Colors.mediumBrown,
   },
 });

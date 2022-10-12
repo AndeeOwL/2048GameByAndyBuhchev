@@ -1,54 +1,54 @@
-import { stylesGlobal } from "../constants/stylesGlobal";
+import { StylesGlobal } from "../constants/StylesGlobal";
 
 export function styleService(value) {
   switch (value) {
     case 0:
-      return [stylesGlobal.gridTextContainerIfNumberIs0, stylesGlobal.gridText];
+      return [StylesGlobal.gridTextContainerIfNumberIs0, StylesGlobal.gridText];
     case 2:
-      return [stylesGlobal.gridTextContainerIfNumberIs2, stylesGlobal.gridText];
+      return [StylesGlobal.gridTextContainerIfNumberIs2, StylesGlobal.gridText];
     case 4:
-      return [stylesGlobal.gridTextContainerIfNumberIs4, stylesGlobal.gridText];
+      return [StylesGlobal.gridTextContainerIfNumberIs4, StylesGlobal.gridText];
     case 8:
-      return [stylesGlobal.gridTextContainerIfNumberIs8, stylesGlobal.gridText];
+      return [StylesGlobal.gridTextContainerIfNumberIs8, StylesGlobal.gridText];
     case 16:
       return [
-        stylesGlobal.gridTextContainerIfNumberIs16,
-        stylesGlobal.gridText,
+        StylesGlobal.gridTextContainerIfNumberIs16,
+        StylesGlobal.gridText,
       ];
     case 32:
       return [
-        stylesGlobal.gridTextContainerIfNumberIs32,
-        stylesGlobal.gridText,
+        StylesGlobal.gridTextContainerIfNumberIs32,
+        StylesGlobal.gridText,
       ];
     case 64:
       return [
-        stylesGlobal.gridTextContainerIfNumberIs64,
-        stylesGlobal.gridText,
+        StylesGlobal.gridTextContainerIfNumberIs64,
+        StylesGlobal.gridText,
       ];
     case 128:
       return [
-        stylesGlobal.gridTextContainerIfNumberIs128,
-        stylesGlobal.gridText,
+        StylesGlobal.gridTextContainerIfNumberIs128,
+        StylesGlobal.gridText,
       ];
     case 256:
       return [
-        stylesGlobal.gridTextContainerIfNumberIs256,
-        stylesGlobal.gridText,
+        StylesGlobal.gridTextContainerIfNumberIs256,
+        StylesGlobal.gridText,
       ];
     case 512:
       return [
-        stylesGlobal.gridTextContainerIfNumberIs512,
-        stylesGlobal.gridText,
+        StylesGlobal.gridTextContainerIfNumberIs512,
+        StylesGlobal.gridText,
       ];
     case 1024:
       return [
-        stylesGlobal.gridTextContainerIfNumberIs1024,
-        stylesGlobal.textContainerIfNumberIs1024,
+        StylesGlobal.gridTextContainerIfNumberIs1024,
+        StylesGlobal.textContainerIfNumberIs1024,
       ];
     case 2048:
       return [
-        stylesGlobal.gridTextContainerIfNumberIs2048,
-        stylesGlobal.textContainerIfNumberIs2048,
+        StylesGlobal.gridTextContainerIfNumberIs2048,
+        StylesGlobal.textContainerIfNumberIs2048,
       ];
   }
 }

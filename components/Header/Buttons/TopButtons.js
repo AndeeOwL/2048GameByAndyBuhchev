@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import Button from "./Button";
 
-function topButtons(props) {
+function TopButtons(props) {
   return (
     <View style={styles.topButtonsContainer}>
       <Button onPress={props.onNewPress} value={"NEW"} />
@@ -10,7 +10,7 @@ function topButtons(props) {
   );
 }
 
-export default topButtons;
+export default TopButtons;
 
 const styles = StyleSheet.create({
   topButtonsContainer: {

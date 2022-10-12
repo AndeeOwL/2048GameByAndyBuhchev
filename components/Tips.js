@@ -1,4 +1,6 @@
 import { Text, StyleSheet } from "react-native";
+import { Colors } from "./common/Colors";
+import { Fonts } from "./common/Fonts";
 
 function Tips() {
   return (
@@ -15,7 +17,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginHorizontal: 10,
     fontWeight: "bold",
-    fontSize: 16,
-    color: "#917c7c",
+    fontSize: Fonts.small,
+    color: Colors.mediumBrown,
   },
 });

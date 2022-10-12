@@ -1,6 +1,12 @@
 import { showRandom } from "../showRandom";
 
-export function upMovement(gameValues, score) {
+export function upMovement(values, score) {
+  let gameValues = [
+    [...values[0]],
+    [...values[1]],
+    [...values[2]],
+    [...values[3]],
+  ];
   let isChanged = false;
   let win = false;
   let curScore = score;

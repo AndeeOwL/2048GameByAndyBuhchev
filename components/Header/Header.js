@@ -7,8 +7,6 @@ function Header(props) {
     <View style={styles.headerContainer}>
       <Logo />
       <TopFieldsContainer
-        score={props.score}
-        bestScore={props.bestScore}
         onNewPress={props.onNewPress}
         onUndoPress={props.onUndoPress}
       />

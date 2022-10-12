@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import BottomStats from "../components/BottomStats";
 import Header from "../components/Header/Header";
 import PlayGrid from "../components/PlayGrid/PlayGrid";
 import Tips from "../components/Tips";
 import GestureRecognizer from "react-native-swipe-gestures";
-import { onNewButtonPress } from "../services/onNewButtonPress";
 import { onUndoButtonPress } from "../services/onUndoButtonPress";
 import { checkGameOver } from "../services/checkGameOver";
 import { leftMovement } from "../services/movements/leftMovement";
@@ -14,49 +13,51 @@ import { upMovement } from "../services/movements/upMovement";
 import { downMovement } from "../services/movements/downMovement";
 import { bestScoreChecker } from "../services/bestScoreChecker";
 import { useNavigation } from "@react-navigation/native";
+import { Colors } from "../components/common/Colors";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  resetGameValues,
+  startGameValues,
+  updateGameValues,
+} from "../redux/slices/gameValues";
+import { addScore, resetScore } from "../redux/slices/score";
+import { updateBestScore } from "../redux/slices/bestScore";
+import { addMoves, resetMoves } from "../redux/slices/moves";
+import { resetTimer, startTimer } from "../redux/slices/timer";
+import { changeDirection, resetDirection } from "../redux/slices/direction";
+import { changeWin, resetWin } from "../redux/slices/win";
+import { changeIsNew, resetIsNew } from "../redux/slices/isNew";
+import { changeIsMerged, resetIsMerged } from "../redux/slices/isMerged";
+import { changeSteps, resetSteps } from "../redux/slices/steps";
 
 function GameScreen() {
   const navigation = useNavigation();
-  const [gameValues, setGameValues] = useState([
-    [0, 0, 0, 2],
-    [0, 0, 0, 0],
-    [2, 0, 0, 0],
-    [0, 0, 0, 0],
-  ]);
-  const [score, setScore] = useState(0);
-  const [bestScore, setBestScore] = useState(0);
-  const [moves, setMoves] = useState(0);
-  const [timer, setTimer] = useState("00:00");
-  const [win, setWin] = useState(false);
-  const [lose, setLose] = useState(false);
-  const [direction, setDirection] = useState("");
-  const [isMerged, setIsMerged] = useState([
-    [false, false, false, false],
-    [false, false, false, false],
-    [false, false, false, false],
-    [false, false, false, false],
-  ]);
-  const [isNew, setIsNew] = useState([
-    [false, false, false, false],
-    [false, false, false, false],
-    [false, false, false, false],
-    [false, false, false, false],
-  ]);
-  const [steps, setSteps] = useState([
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-  ]);
+  const { gameValues } = useSelector((state) => state.gameValues);
+  const { score } = useSelector((state) => state.score);
+  const { bestScore } = useSelector((state) => state.bestScore);
+  const { win } = useSelector((state) => state.win);
+  const dispatch = useDispatch();
+
+  useLayoutEffect(() => {
+    dispatch(startGameValues());
+  }, []);
+  useEffect(() => {
+    setInterval(() => {
+      dispatch(startTimer());
+    }, 1000);
+  }, []);
 
   const onNewPress = () => {
-    let reset = onNewButtonPress();
-    setGameValues(reset[0]);
-    setMoves(reset[1]);
-    setScore(reset[2]);
-    setTimer(reset[3]);
-    setWin(reset[4]);
-    setLose(reset[5]);
+    dispatch(resetGameValues());
+    dispatch(startGameValues());
+    dispatch(resetScore());
+    dispatch(resetMoves());
+    dispatch(resetTimer());
+    dispatch(resetDirection());
+    dispatch(resetSteps());
+    dispatch(resetIsMerged());
+    dispatch(resetIsNew());
+    dispatch(resetWin());
   };
 
   const onUndoPress = () => {
@@ -64,56 +65,48 @@ function GameScreen() {
   };
 
   const onSwipeUp = () => {
-    let result = upMovement(gameValues, score);
-    setGameValues(result[0]);
-    setWin(result[1]);
-    setScore(result[2]);
-    setIsNew(result[3]);
-    setIsMerged(result[4]);
-    setSteps(result[5]);
-    setMoves(moves + 1);
-    setDirection("UP");
-    let gameover = checkGameOver(gameValues);
-    setLose(gameover);
+    let result = upMovement([...gameValues], score);
+    dispatch(updateGameValues(result[0]));
+    dispatch(changeWin(result[1]));
+    dispatch(addScore(result[2]));
+    dispatch(changeIsNew(result[3]));
+    dispatch(changeIsMerged(result[4]));
+    dispatch(changeSteps(result[5]));
+    dispatch(addMoves());
+    dispatch(changeDirection("UP"));
   };
   const onSwipeDown = () => {
-    let result = downMovement(gameValues, score);
-    setGameValues(result[0]);
-    setWin(result[1]);
-    setScore(result[2]);
-    setIsNew(result[3]);
-    setIsMerged(result[4]);
-    setSteps(result[5]);
-    setMoves(moves + 1);
-    setDirection("DOWN");
-    let gameover = checkGameOver(gameValues);
-    setLose(gameover);
+    let result = downMovement([...gameValues], score);
+    dispatch(updateGameValues(result[0]));
+    dispatch(changeWin(result[1]));
+    dispatch(addScore(result[2]));
+    dispatch(changeIsNew(result[3]));
+    dispatch(changeIsMerged(result[4]));
+    dispatch(changeSteps(result[5]));
+    dispatch(addMoves());
+    dispatch(changeDirection("DOWN"));
   };
   const onSwipeLeft = () => {
-    let result = leftMovement(gameValues, score);
-    setGameValues(result[0]);
-    setWin(result[1]);
-    setScore(result[2]);
-    setIsNew(result[3]);
-    setIsMerged(result[4]);
-    setSteps(result[5]);
-    setMoves(moves + 1);
-    setDirection("LEFT");
-    let gameover = checkGameOver(gameValues);
-    setLose(gameover);
+    let result = leftMovement([...gameValues], score);
+    dispatch(updateGameValues(result[0]));
+    dispatch(changeWin(result[1]));
+    dispatch(addScore(result[2]));
+    dispatch(changeIsNew(result[3]));
+    dispatch(changeIsMerged(result[4]));
+    dispatch(changeSteps(result[5]));
+    dispatch(addMoves());
+    dispatch(changeDirection("LEFT"));
   };
   const onSwipeRight = () => {
-    let result = rightMovement(gameValues, score);
-    setGameValues(result[0]);
-    setWin(result[1]);
-    setScore(result[2]);
-    setIsNew(result[3]);
-    setIsMerged(result[4]);
-    setSteps(result[5]);
-    setMoves(moves + 1);
-    setDirection("RIGHT");
-    let gameover = checkGameOver(gameValues);
-    setLose(gameover);
+    let result = rightMovement([...gameValues], score);
+    dispatch(updateGameValues(result[0]));
+    dispatch(changeWin(result[1]));
+    dispatch(addScore(result[2]));
+    dispatch(changeIsNew(result[3]));
+    dispatch(changeIsMerged(result[4]));
+    dispatch(changeSteps(result[5]));
+    dispatch(addMoves());
+    dispatch(changeDirection("RIGHT"));
   };
 
   const config = {
@@ -121,44 +114,33 @@ function GameScreen() {
     directionalOffsetThreshold: 80,
   };
 
-  const checkBestScore = () => {
-    let isTrue = bestScoreChecker(score, bestScore);
-    if (isTrue) {
-      setBestScore(score);
-    }
-  };
-
-  // NOT TAKING EFFECT
   useEffect(() => {
     if (win) {
       checkBestScore();
       navigation.navigate("RetryScreen", {
         text: "You Win!",
-        score: score,
-        moves: moves,
-        time: timer,
-        gameValues: gameValues,
         onNewPress: onNewPress,
         onUndoPress: onUndoPress,
       });
     }
-  }, []);
+  }, [win]);
 
-  //NOT TAKING EFFECT
-  useEffect(() => {
-    if (lose) {
-      checkBestScore();
-      navigation.navigate("RetryScreen", {
-        text: "Game Over!",
-        score: score,
-        moves: moves,
-        time: timer,
-        values: gameValues,
-        onNew: onNewPress,
-        onUndo: onUndoPress,
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   let gameover = checkGameOver(gameValues);
+  //   if (gameover === true) {
+
+  //     let isTrue = bestScoreChecker(score, bestScore);
+  //     if (isTrue=== true) {
+  //       dispatch(updateBestScore(score));
+  //     }
+
+  //     navigation.navigate("RetryScreen", {
+  //       text: "Game Over!",
+  //       onNew: onNewPress,
+  //       onUndo: onUndoPress,
+  //     });
+  //   }
+  // });
 
   return (
     <View style={styles.rootContainer}>
@@ -177,15 +159,9 @@ function GameScreen() {
         onSwipeRight={onSwipeRight}
         style={styles.gridContainer}
       >
-        <PlayGrid
-          gameValues={gameValues}
-          steps={steps}
-          direction={direction}
-          isMerged={isMerged}
-          isNew={isNew}
-        />
+        <PlayGrid />
       </GestureRecognizer>
-      <BottomStats moves={moves} timer={timer} />
+      <BottomStats />
     </View>
   );
 }
@@ -195,13 +171,13 @@ export default GameScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: "#f7f5f0",
+    backgroundColor: Colors.mediumWhite,
     marginHorizontal: 15,
   },
   gridContainer: {
     flex: 1.5,
     borderRadius: 5,
-    backgroundColor: "#917c7c",
+    backgroundColor: Colors.lightBrown,
 
     overflow: "hidden",
   },
