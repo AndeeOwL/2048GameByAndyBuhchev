@@ -5,13 +5,12 @@ import Header from "../components/Header/Header";
 import PlayGrid from "../components/PlayGrid/PlayGrid";
 import Tips from "../components/Tips";
 import GestureRecognizer from "react-native-swipe-gestures";
-import { onUndoButtonPress } from "../services/onUndoButtonPress";
 import { checkGameOver } from "../services/checkGameOver";
 import { bestScoreChecker } from "../services/bestScoreChecker";
 import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../components/common/Colors";
 import { useSelector, useDispatch } from "react-redux";
-import { startGameValues } from "../redux/slices/gameValues";
+import { startGameValues, updateGameValues } from "../redux/slices/gameValues";
 import { updateBestScore } from "../redux/slices/bestScore";
 import { startTimer } from "../redux/slices/timer";
 import useReset from "../customHooks/useReset";
@@ -27,6 +26,7 @@ function GameScreen() {
   const { gameValues } = useSelector((state) => state.gameValues);
   const { timer } = useSelector((state) => state.timer);
   const { win } = useSelector((state) => state.win);
+  const { previusBoard } = useSelector((state) => state.previusBoardState);
   const dispatch = useDispatch();
   useReset(pressedNew);
   useSwipe(swipeDirection);
@@ -50,7 +50,7 @@ function GameScreen() {
   };
 
   const onUndoPress = () => {
-    onUndoButtonPress();
+    dispatch(updateGameValues(previusBoard));
   };
 
   const onSwipeUp = () => {
@@ -86,7 +86,7 @@ function GameScreen() {
         text: "You Win!",
         time: time,
         onNew: onNewPress,
-        onUndoPress: onUndoPress,
+        onUndo: onUndoPress,
       });
     }
   }, [win]);

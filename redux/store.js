@@ -9,6 +9,7 @@ import isNewReducer from "./slices/isNew";
 import stepsReducer from "./slices/steps";
 import winReducer from "./slices/win";
 import timerReducer from "./slices/timer";
+import previusBoardStateReducer from "./slices/previusBoardState";
 
 export default configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export default configureStore({
     steps: stepsReducer,
     win: winReducer,
     timer: timerReducer,
+    previusBoardState: previusBoardStateReducer,
   },
 });

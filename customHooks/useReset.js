@@ -4,6 +4,7 @@ import { resetMoves } from "../redux/slices/moves";
 import { resetDirection } from "../redux/slices/direction";
 import { resetWin } from "../redux/slices/win";
 import { resetIsNew } from "../redux/slices/isNew";
+import { resetBoardState } from "../redux/slices/previusBoardState";
 import { resetIsMerged } from "../redux/slices/isMerged";
 import { resetSteps } from "../redux/slices/steps";
 import { resetTimer } from "../redux/slices/timer";
@@ -23,5 +24,6 @@ export default function useReset(pressed) {
     dispatch(resetIsNew());
     dispatch(resetWin());
     dispatch(resetTimer());
+    dispatch(resetBoardState());
   }, [pressed]);
 }

@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateGameValues } from "../redux/slices/gameValues";
 import { addScore } from "../redux/slices/score";
 import { addMoves } from "../redux/slices/moves";
+import { changeBoardState } from "../redux/slices/previusBoardState";
 import { changeDirection } from "../redux/slices/direction";
 import { changeWin } from "../redux/slices/win";
 import { changeIsNew } from "../redux/slices/isNew";
@@ -21,6 +22,7 @@ export default function useSwipe(swipeDirection) {
   useEffect(() => {
     switch (swipeDirection) {
       case "UP":
+        dispatch(changeBoardState(gameValues));
         result = upMovement([...gameValues], score);
         dispatch(updateGameValues(result[0]));
         dispatch(changeWin(result[1]));
@@ -32,6 +34,7 @@ export default function useSwipe(swipeDirection) {
         dispatch(changeDirection("UP"));
         break;
       case "DOWN":
+        dispatch(changeBoardState(gameValues));
         result = downMovement([...gameValues], score);
         dispatch(updateGameValues(result[0]));
         dispatch(changeWin(result[1]));
@@ -43,6 +46,7 @@ export default function useSwipe(swipeDirection) {
         dispatch(changeDirection("DOWN"));
         break;
       case "RIGHT":
+        dispatch(changeBoardState(gameValues));
         result = rightMovement([...gameValues], score);
         dispatch(updateGameValues(result[0]));
         dispatch(changeWin(result[1]));
@@ -54,6 +58,7 @@ export default function useSwipe(swipeDirection) {
         dispatch(changeDirection("RIGHT"));
         break;
       case "LEFT":
+        dispatch(changeBoardState(gameValues));
         result = leftMovement([...gameValues], score);
         dispatch(updateGameValues(result[0]));
         dispatch(changeWin(result[1]));

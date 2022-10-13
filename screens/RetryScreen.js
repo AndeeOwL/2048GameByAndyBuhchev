@@ -16,7 +16,11 @@ function RetryScreen({ route }) {
 
   const onPlayAgainPress = () => {
     navigation.navigate("GameScreen");
-    route.params.onNew();
+    route.params.onNew;
+  };
+  const onUndoPress = () => {
+    navigation.navigate("GameScreen");
+    route.params.onUndo;
   };
 
   return (
@@ -32,7 +36,7 @@ function RetryScreen({ route }) {
 
       <Pressable style={styles.bottomButtonsContainer}>
         <Button onPress={onPlayAgainPress} value={"Play Again"} />
-        <Button onPress={route.params.onUndo} value={"Undo"} />
+        <Button onPress={onUndoPress} value={"Undo"} />
       </Pressable>
     </View>
   );
