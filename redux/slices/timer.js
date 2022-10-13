@@ -10,7 +10,6 @@ export const timerSlice = createSlice({
     startTimer: (state) => {
       state.timer += 1;
     },
-
     resetTimer: (state) => {
       state.timer = 0;
     },

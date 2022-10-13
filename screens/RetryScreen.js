@@ -10,14 +10,13 @@ import PlayGrid from "../components/PlayGrid/PlayGrid";
 function RetryScreen({ route }) {
   const { score } = useSelector((state) => state.score);
   const { moves } = useSelector((state) => state.moves);
-  const { timer } = useSelector((state) => state.timer);
   const { gameValues } = useSelector((state) => state.gameValues);
 
   const navigation = useNavigation();
 
   const onPlayAgainPress = () => {
-    route.params.onNew();
     navigation.navigate("GameScreen");
+    route.params.onNew();
   };
 
   return (
@@ -25,7 +24,8 @@ function RetryScreen({ route }) {
       <View style={styles.topTextContainer}>
         <Text style={styles.topTextConditional}>{route.params.text}</Text>
         <Text style={styles.topText}>
-          You earned {score} points with {moves} moves in {timer}.
+          You earned {score} points with {moves} moves in {route.params.time}{" "}
+          seconds.
         </Text>
       </View>
       <PlayGrid gameValues={gameValues} />

@@ -12,16 +12,20 @@ import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../components/common/Colors";
 import { useSelector, useDispatch } from "react-redux";
 import { startGameValues } from "../redux/slices/gameValues";
+import { updateBestScore } from "../redux/slices/bestScore";
 import { startTimer } from "../redux/slices/timer";
 import useReset from "../customHooks/useReset";
 import useSwipe from "../customHooks/useSwipe";
 
 function GameScreen() {
   const navigation = useNavigation();
+  const [lose, setLose] = useState(false);
   const [pressedNew, setPressedNew] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState("");
   const { score } = useSelector((state) => state.score);
   const { bestScore } = useSelector((state) => state.bestScore);
+  const { gameValues } = useSelector((state) => state.gameValues);
+  const { timer } = useSelector((state) => state.timer);
   const { win } = useSelector((state) => state.win);
   const dispatch = useDispatch();
   useReset(pressedNew);
@@ -73,31 +77,42 @@ function GameScreen() {
 
   useEffect(() => {
     if (win) {
-      checkBestScore();
+      let time = timer;
+      let isTrue = bestScoreChecker(score, bestScore);
+      if (isTrue === true) {
+        dispatch(updateBestScore(score));
+      }
       navigation.navigate("RetryScreen", {
         text: "You Win!",
-        onNewPress: onNewPress,
+        time: time,
+        onNew: onNewPress,
         onUndoPress: onUndoPress,
       });
     }
   }, [win]);
 
-  // useEffect(() => {
-  //   let gameover = checkGameOver(gameValues);
-  //   if (gameover === true) {
+  useEffect(() => {
+    let gameover = checkGameOver(gameValues);
+    if (gameover === true) {
+      setLose(true);
+    }
+  });
 
-  //     let isTrue = bestScoreChecker(score, bestScore);
-  //     if (isTrue=== true) {
-  //       dispatch(updateBestScore(score));
-  //     }
-
-  //     navigation.navigate("RetryScreen", {
-  //       text: "Game Over!",
-  //       onNew: onNewPress,
-  //       onUndo: onUndoPress,
-  //     });
-  //   }
-  // });
+  useEffect(() => {
+    if (lose) {
+      let time = timer;
+      let isTrue = bestScoreChecker(score, bestScore);
+      if (isTrue === true) {
+        dispatch(updateBestScore(score));
+      }
+      navigation.navigate("RetryScreen", {
+        text: "Game Over!",
+        time: time,
+        onNew: onNewPress,
+        onUndo: onUndoPress,
+      });
+    }
+  }, [lose]);
 
   return (
     <View style={styles.rootContainer}>

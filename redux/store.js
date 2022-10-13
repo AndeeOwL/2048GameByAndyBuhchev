@@ -7,8 +7,8 @@ import directionReducer from "./slices/direction";
 import isMergedReducer from "./slices/isMerged";
 import isNewReducer from "./slices/isNew";
 import stepsReducer from "./slices/steps";
-import timerReducer from "./slices/timer";
 import winReducer from "./slices/win";
+import timerReducer from "./slices/timer";
 
 export default configureStore({
   reducer: {
@@ -20,7 +20,7 @@ export default configureStore({
     isMerged: isMergedReducer,
     isNew: isNewReducer,
     steps: stepsReducer,
-    timer: timerReducer,
     win: winReducer,
+    timer: timerReducer,
   },
 });

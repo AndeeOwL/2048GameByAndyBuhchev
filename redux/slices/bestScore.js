@@ -13,5 +13,5 @@ export const bestScoreSlice = createSlice({
   },
 });
 
-export const { uupdateBestScore } = bestScoreSlice.actions;
+export const { updateBestScore } = bestScoreSlice.actions;
 export default bestScoreSlice.reducer;
