@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import BottomStats from "../components/BottomStats";
 import Header from "../components/Header/Header";
 import PlayGrid from "../components/PlayGrid/PlayGrid";
@@ -15,6 +15,10 @@ import { updateBestScore } from "../redux/slices/bestScore";
 import { startTimer } from "../redux/slices/timer";
 import useReset from "../customHooks/useReset";
 import useSwipe from "../customHooks/useSwipe";
+import RegisterButton from "../components/SignUp/RegisterButton";
+import { Fonts } from "../components/common/Fonts";
+import LoginScreen from "./LoginScreen";
+import LeaderboardScreen from "./LeaderboardScreen";
 
 function GameScreen() {
   const navigation = useNavigation();
@@ -30,6 +34,13 @@ function GameScreen() {
   const dispatch = useDispatch();
   useReset(pressedNew);
   useSwipe(swipeDirection);
+
+  const logout = () => {
+    navigation.navigate(LoginScreen);
+  };
+  const leaderboard = () => {
+    navigation.navigate(LeaderboardScreen);
+  };
 
   useLayoutEffect(() => {
     dispatch(startGameValues());
@@ -134,6 +145,14 @@ function GameScreen() {
         <PlayGrid />
       </GestureRecognizer>
       <BottomStats />
+      <View style={styles.buttons}>
+        <Text style={styles.registerbutton} onPress={leaderboard}>
+          Leaderboard
+        </Text>
+        <Text style={styles.registerbutton} onPress={logout}>
+          Logout
+        </Text>
+      </View>
     </View>
   );
 }
@@ -147,10 +166,24 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   gridContainer: {
-    flex: 1.5,
+    flex: 2,
     borderRadius: 5,
     backgroundColor: Colors.lightBrown,
 
     overflow: "hidden",
+  },
+  buttons: {
+    flexDirection: "row",
+    marginBottom: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  registerbutton: {
+    marginHorizontal: 15,
+    padding: 15,
+    backgroundColor: Colors.color8,
+    fontSize: Fonts.medium,
+    fontWeight: "bold",
+    margin: 15,
   },
 });
