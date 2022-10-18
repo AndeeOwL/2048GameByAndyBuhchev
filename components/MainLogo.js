@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Colors } from "./common/Colors";
 import { Fonts } from "./common/Fonts";
 
-function MainLogo() {
+function MainLogo(props) {
   return (
     <View style={styles.logo}>
       <Text style={styles.logoText}>2048</Text>
@@ -14,7 +14,7 @@ export default MainLogo;
 
 const styles = StyleSheet.create({
   logo: {
-    marginTop: 100,
+    marginTop: 50,
     marginBottom: 50,
     backgroundColor: Colors.color1024,
     width: 150,

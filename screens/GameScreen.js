@@ -15,7 +15,6 @@ import { updateBestScore } from "../redux/slices/bestScore";
 import { startTimer } from "../redux/slices/timer";
 import useReset from "../customHooks/useReset";
 import useSwipe from "../customHooks/useSwipe";
-import RegisterButton from "../components/SignUp/RegisterButton";
 import { Fonts } from "../components/common/Fonts";
 import LoginScreen from "./LoginScreen";
 import LeaderboardScreen from "./LeaderboardScreen";
@@ -38,6 +37,7 @@ function GameScreen() {
   const logout = () => {
     navigation.navigate(LoginScreen);
   };
+
   const leaderboard = () => {
     navigation.navigate(LeaderboardScreen);
   };

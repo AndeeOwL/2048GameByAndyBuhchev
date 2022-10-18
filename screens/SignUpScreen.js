@@ -6,17 +6,23 @@ import { Fonts } from "../components/common/Fonts";
 import MainLogo from "../components/MainLogo";
 import RegisterButton from "../components/SignUp/RegisterButton";
 import SignUpForm from "../components/SignUp/SignUpForm";
-import GameScreen from "./GameScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginScreen from "./LoginScreen";
 
 function SignUpScreen() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const user = {
+    username: username,
+    password: password,
+    score: 0,
+  };
 
   const navigation = useNavigation();
-  const register = () => {
-    const isUsernameValid = username.length >= 4; // && username not taken
+
+  const register = async () => {
+    const isUsernameValid = username.length >= 4;
     const isPasswordValid =
       password.length >= 8 && password === confirmPassword;
 
@@ -35,11 +41,26 @@ function SignUpScreen() {
       return;
     }
 
-    //add to storage
-    navigation.navigate(LoginScreen);
-  };
-  const login = () => {
-    navigation.navigate(LoginScreen);
+    try {
+      const name = await AsyncStorage.getItem(username);
+
+      if (name === null) {
+        await AsyncStorage.setItem(
+          username,
+          JSON.stringify({
+            username: username,
+            password: password,
+            score: 0,
+          })
+        );
+        navigation.navigate(LoginScreen);
+      } else {
+        Alert.alert("Invalid input", "Username taken !");
+        return;
+      }
+    } catch (error) {
+      Alert.alert("Invalid input", "Username taken !");
+    }
   };
 
   const usernameInputHandler = (enteredText) => {
@@ -63,7 +84,7 @@ function SignUpScreen() {
         passwordChange={passwordInputHandler}
         confirmPasswordChange={confirmPasswordInputHandler}
       />
-      <RegisterButton register={register} login={login} />
+      <RegisterButton register={register} />
     </View>
   );
 }

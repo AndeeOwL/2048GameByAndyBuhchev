@@ -8,9 +8,6 @@ function RegisterButton(props) {
       <Text style={styles.registerbutton} onPress={props.register}>
         Register
       </Text>
-      <Text style={styles.registerbutton} onPress={props.login}>
-        Login
-      </Text>
     </View>
   );
 }

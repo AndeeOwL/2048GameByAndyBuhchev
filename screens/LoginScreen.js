@@ -18,15 +18,17 @@ function LoginScreen() {
 
   const login = async () => {
     try {
-      let user = AsyncStorage.getItem(username);
-      console.log(user);
-      console.log(typeof user);
-
-      if (user !== null) {
+      const user = AsyncStorage.getItem(username);
+      const userObJ = AsyncStorage.getItem(JSON.parse(user));
+      if (user !== null && userObJ.password === password) {
+        setUsername("");
+        setPassword("");
         navigation.navigate(GameScreen);
+      } else {
+        Alert.alert("Invalid input", "Invalid username or password");
       }
     } catch (error) {
-      Alert.alert("Invalid Input", "Username or password invalid");
+      Alert.alert("Invalid input", "Invalid username or password");
     }
   };
 
@@ -48,7 +50,7 @@ function LoginScreen() {
 
   return (
     <View style={styles.rootContainer}>
-      <MainLogo />
+      <MainLogo cStyle={styles.logo} />
       <Text style={styles.text}>Login to play</Text>
       <LoginForm
         usernameChange={usernameInputHandler}

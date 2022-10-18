@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import LeaderboardScreen from "./screens/LeaderboardScreen";
+import { Colors } from "./components/common/Colors";
 
 const Stack = createStackNavigator();
 
@@ -46,7 +47,8 @@ export default function App() {
               name='SignUpScreen'
               component={SignUpScreen}
               options={{
-                headerShown: false,
+                headerShown: true,
+                headerTitle: "Sign Up",
                 animationEnabled: false,
               }}
             />
