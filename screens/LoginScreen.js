@@ -1,6 +1,7 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../components/common/Colors";
 import { Fonts } from "../components/common/Fonts";
 import LoginButtons from "../components/Login/LoginButtons";
@@ -14,30 +15,25 @@ function LoginScreen() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
-  const login = () => {
-    // const isUsernameValid = username is contained in the users
-    // const isPasswordValid = password matches the username
 
-    // if (!isUsernameValid) {
-    //   Alert.alert(
-    //     "Invalid input",
-    //     "Username is not registered !"
-    //   );
-    //   return;
-    // }
-    // if (!isPasswordValid) {
-    //   Alert.alert(
-    //     "Invalid input",
-    //     "Incorrect password !"
-    //   );
-    //   return;
-    // }
+  const login = async () => {
+    try {
+      let user = AsyncStorage.getItem(username);
+      console.log(user);
+      console.log(typeof user);
 
-    navigation.navigate(GameScreen);
+      if (user !== null) {
+        navigation.navigate(GameScreen);
+      }
+    } catch (error) {
+      Alert.alert("Invalid Input", "Username or password invalid");
+    }
   };
+
   const signUp = () => {
     navigation.navigate(SignUpScreen);
   };
+
   const leaderboard = () => {
     navigation.navigate(LeaderboardScreen);
   };
