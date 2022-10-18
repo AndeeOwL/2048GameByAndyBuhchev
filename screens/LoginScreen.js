@@ -7,6 +7,7 @@ import { Fonts } from "../components/common/Fonts";
 import LoginButtons from "../components/Login/LoginButtons";
 import LoginForm from "../components/Login/LoginForm";
 import MainLogo from "../components/MainLogo";
+import score from "../redux/slices/score";
 import GameScreen from "./GameScreen";
 import LeaderboardScreen from "./LeaderboardScreen";
 import SignUpScreen from "./SignUpScreen";
@@ -18,17 +19,23 @@ function LoginScreen() {
 
   const login = async () => {
     try {
-      const user = AsyncStorage.getItem(username);
-      const userObJ = AsyncStorage.getItem(JSON.parse(user));
-      if (user !== null && userObJ.password === password) {
-        setUsername("");
-        setPassword("");
-        navigation.navigate(GameScreen);
+      const user = await AsyncStorage.getItem(username);
+      if (user !== null) {
+        const userObj = JSON.parse(user);
+        if (userObj.password === password) {
+          navigation.navigate("GameScreen", {
+            username: username,
+            password: password,
+            score: userObj.score,
+          });
+        } else {
+          Alert.alert("Invalid input", "Invalid password");
+        }
       } else {
-        Alert.alert("Invalid input", "Invalid username or password");
+        Alert.alert("Invalid input", "Invalid username");
       }
     } catch (error) {
-      Alert.alert("Invalid input", "Invalid username or password");
+      Alert.alert("Invalid input", "Something went wrong try again");
     }
   };
 

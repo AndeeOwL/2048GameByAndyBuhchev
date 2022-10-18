@@ -5,7 +5,7 @@ import TopButtons from "./Buttons/TopButtons";
 function TopFieldsContainer(props) {
   return (
     <View style={styles.topContainer}>
-      <TopStats />
+      <TopStats username={props.username} />
       <TopButtons
         onNewPress={props.onNewPress}
         onUndoPress={props.onUndoPress}

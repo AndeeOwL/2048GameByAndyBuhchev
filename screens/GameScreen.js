@@ -37,7 +37,6 @@ function GameScreen() {
   const logout = () => {
     navigation.navigate(LoginScreen);
   };
-
   const leaderboard = () => {
     navigation.navigate(LeaderboardScreen);
   };
