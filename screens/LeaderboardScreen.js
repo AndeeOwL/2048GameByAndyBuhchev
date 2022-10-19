@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../components/common/Colors";
 import { Fonts } from "../components/common/Fonts";
@@ -9,10 +9,10 @@ import MainLogo from "../components/MainLogo";
 import LoginScreen from "./LoginScreen";
 
 function LeaderboardScreen() {
-  const [time, setTime] = useState(0);
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const navigation = useNavigation();
+
   const login = () => {
     navigation.navigate(LoginScreen);
   };
@@ -29,18 +29,17 @@ function LeaderboardScreen() {
         userArr.push(userObject);
       });
       setUsers(...[userArr]);
-      setLoading(false);
     } catch (e) {
       Alert.alert("Not found entries", "No users are registered yet");
     }
+    const all = await AsyncStorage.getAllKeys();
+    console.log(all);
+    setLoading(false);
   };
 
-  //To Re-render the screen to show the new state of leaderboard users (need refactoring)
-  useEffect(() => {
-    setInterval(() => {
-      setTime(time + 1);
-    }, 1000);
-  }, [users]);
+  users.sort((u1, u2) =>
+    u1.score < u2.score ? 1 : u1.score > u2.score ? -1 : 0
+  );
 
   if (loading) {
     return (

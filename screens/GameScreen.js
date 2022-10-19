@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Alert } from "react-native";
 import BottomStats from "../components/BottomStats";
 import Header from "../components/Header/Header";
 import PlayGrid from "../components/PlayGrid/PlayGrid";
@@ -12,14 +12,15 @@ import { Colors } from "../components/common/Colors";
 import { useSelector, useDispatch } from "react-redux";
 import { startGameValues, updateGameValues } from "../redux/slices/gameValues";
 import { updateBestScore } from "../redux/slices/bestScore";
-import { startTimer } from "../redux/slices/timer";
+import timer, { startTimer } from "../redux/slices/timer";
 import useReset from "../customHooks/useReset";
 import useSwipe from "../customHooks/useSwipe";
 import { Fonts } from "../components/common/Fonts";
 import LoginScreen from "./LoginScreen";
 import LeaderboardScreen from "./LeaderboardScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-function GameScreen() {
+function GameScreen({ route }) {
   const navigation = useNavigation();
   const [lose, setLose] = useState(false);
   const [pressedNew, setPressedNew] = useState(false);
@@ -52,6 +53,7 @@ function GameScreen() {
   }, []);
 
   const onNewPress = () => {
+    setLose(false);
     if (pressedNew) {
       setPressedNew(false);
     } else {
@@ -88,18 +90,36 @@ function GameScreen() {
   useEffect(() => {
     if (win) {
       let time = timer;
-      let isTrue = bestScoreChecker(score, bestScore);
+      let isTrue = bestScoreChecker(score, route.params.score);
       if (isTrue === true) {
-        dispatch(updateBestScore(score));
+        setObjectValue(score);
       }
       navigation.navigate("RetryScreen", {
         text: "You Win!",
         time: time,
         onNew: onNewPress,
         onUndo: onUndoPress,
+        score: route.params.score,
       });
     }
   }, [win]);
+
+  const setObjectValue = async (score) => {
+    try {
+      await AsyncStorage.setItem(
+        route.params.username,
+        JSON.stringify({
+          username: route.params.username.toString(),
+          password: route.params.password,
+          score: score,
+        })
+      );
+      const object = await AsyncStorage.getItem(route.params.username);
+      console.log(object);
+    } catch (e) {
+      Alert.alert("Something went wrong setting new best score to user");
+    }
+  };
 
   useEffect(() => {
     let gameover = checkGameOver(gameValues);
@@ -111,15 +131,16 @@ function GameScreen() {
   useEffect(() => {
     if (lose) {
       let time = timer;
-      let isTrue = bestScoreChecker(score, bestScore);
+      let isTrue = bestScoreChecker(score, route.params.score);
       if (isTrue === true) {
-        dispatch(updateBestScore(score));
+        setObjectValue(score);
       }
       navigation.navigate("RetryScreen", {
         text: "Game Over!",
         time: time,
         onNew: onNewPress,
         onUndo: onUndoPress,
+        score: route.params.score,
       });
     }
   }, [lose]);
@@ -130,7 +151,7 @@ function GameScreen() {
         onNewPress={onNewPress}
         onUndoPress={onUndoPress}
         score={score}
-        bestScore={bestScore}
+        bestScore={route.params.score}
       />
       <Tips />
       <GestureRecognizer

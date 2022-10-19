@@ -15,12 +15,12 @@ function RetryScreen({ route }) {
   const navigation = useNavigation();
 
   const onPlayAgainPress = () => {
-    navigation.navigate("GameScreen");
-    route.params.onNew;
+    navigation.navigate("GameScreen", { score: route.params.score });
+    route.params.onNew();
   };
   const onUndoPress = () => {
-    navigation.navigate("GameScreen");
-    route.params.onUndo;
+    navigation.navigate("GameScreen", { score: route.params.score });
+    route.params.onUndo();
   };
 
   return (

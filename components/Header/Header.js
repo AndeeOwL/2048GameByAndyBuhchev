@@ -9,7 +9,7 @@ function Header(props) {
       <TopFieldsContainer
         onNewPress={props.onNewPress}
         onUndoPress={props.onUndoPress}
-        username={props.username}
+        bestScore={props.bestScore}
       />
     </View>
   );
