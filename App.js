@@ -61,7 +61,8 @@ export default function App() {
               name='LeaderboardScreen'
               component={LeaderboardScreen}
               options={{
-                headerShown: false,
+                headerShown: true,
+                headerTitle: "Leaderboard",
                 animationEnabled: false,
               }}
             />
