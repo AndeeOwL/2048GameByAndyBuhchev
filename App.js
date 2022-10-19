@@ -8,11 +8,16 @@ import { Provider } from "react-redux";
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import LeaderboardScreen from "./screens/LeaderboardScreen";
-import { Colors } from "./components/common/Colors";
+import { LogBox } from "react-native";
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  LogBox.ignoreLogs(["Require cycle:"]);
+  LogBox.ignoreLogs([
+    "Non-serializable values were found in the navigation state",
+  ]);
+
   return (
     <>
       <StatusBar style='auto' />

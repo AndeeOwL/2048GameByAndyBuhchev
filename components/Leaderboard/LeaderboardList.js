@@ -6,12 +6,14 @@ function LeaderboardList(props) {
   return (
     <ScrollView style={styles.scrollContainer}>
       {props.users.map((user) => (
-        <>
-          <View style={styles.userStatsContainer}>
-            <Text style={styles.userStats}>user:{user.username}</Text>
-            <Text style={styles.userStats}>score:{user.score}</Text>
-          </View>
-        </>
+        <View key={Math.random().toString()} style={styles.userStatsContainer}>
+          <Text key={Math.random().toString()} style={styles.userStats}>
+            user:{user.username}
+          </Text>
+          <Text key={Math.random().toString()} style={styles.userStats}>
+            score:{user.score}
+          </Text>
+        </View>
       ))}
     </ScrollView>
   );

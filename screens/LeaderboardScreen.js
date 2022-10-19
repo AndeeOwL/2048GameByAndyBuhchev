@@ -11,13 +11,7 @@ import LoginScreen from "./LoginScreen";
 function LeaderboardScreen() {
   const [time, setTime] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [users, setUsers] = useState([
-    {
-      username: "",
-      password: "",
-      score: "",
-    },
-  ]);
+  const [users, setUsers] = useState([]);
   const navigation = useNavigation();
   const login = () => {
     navigation.navigate(LoginScreen);
@@ -40,6 +34,8 @@ function LeaderboardScreen() {
       Alert.alert("Not found entries", "No users are registered yet");
     }
   };
+
+  //To Re-render the screen to show the new state of leaderboard users (need refactoring)
   useEffect(() => {
     setInterval(() => {
       setTime(time + 1);
