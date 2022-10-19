@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import bestScoreReducer from "./slices/bestScore";
 import gameValuesReducer from "./slices/gameValues";
 import scoreReducer from "./slices/score";
 import movesReducer from "./slices/moves";
@@ -15,7 +14,6 @@ export default configureStore({
   reducer: {
     gameValues: gameValuesReducer,
     score: scoreReducer,
-    bestScore: bestScoreReducer,
     moves: movesReducer,
     direction: directionReducer,
     isMerged: isMergedReducer,

@@ -11,8 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../components/common/Colors";
 import { useSelector, useDispatch } from "react-redux";
 import { startGameValues, updateGameValues } from "../redux/slices/gameValues";
-import { updateBestScore } from "../redux/slices/bestScore";
-import timer, { startTimer } from "../redux/slices/timer";
+import { startTimer } from "../redux/slices/timer";
 import useReset from "../customHooks/useReset";
 import useSwipe from "../customHooks/useSwipe";
 import { Fonts } from "../components/common/Fonts";
@@ -26,7 +25,6 @@ function GameScreen({ route }) {
   const [pressedNew, setPressedNew] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState("");
   const { score } = useSelector((state) => state.score);
-  const { bestScore } = useSelector((state) => state.bestScore);
   const { gameValues } = useSelector((state) => state.gameValues);
   const { timer } = useSelector((state) => state.timer);
   const { win } = useSelector((state) => state.win);
@@ -38,6 +36,7 @@ function GameScreen({ route }) {
   const logout = () => {
     navigation.navigate(LoginScreen);
   };
+
   const leaderboard = () => {
     navigation.navigate(LeaderboardScreen);
   };
@@ -80,6 +79,7 @@ function GameScreen({ route }) {
 
   useEffect(() => {
     setSwipeDirection("");
+    gameLost();
   }, [swipeDirection]);
 
   const config = {
@@ -92,7 +92,7 @@ function GameScreen({ route }) {
       let time = timer;
       let isTrue = bestScoreChecker(score, route.params.score);
       if (isTrue === true) {
-        setObjectValue(score);
+        setNewBestScore(score);
       }
       navigation.navigate("RetryScreen", {
         text: "You Win!",
@@ -104,7 +104,7 @@ function GameScreen({ route }) {
     }
   }, [win]);
 
-  const setObjectValue = async (score) => {
+  const setNewBestScore = async (score) => {
     try {
       await AsyncStorage.setItem(
         route.params.username,
@@ -121,12 +121,12 @@ function GameScreen({ route }) {
     }
   };
 
-  useEffect(() => {
+  const gameLost = () => {
     let gameover = checkGameOver(gameValues);
     if (gameover === true) {
       setLose(true);
     }
-  });
+  };
 
   useEffect(() => {
     if (lose) {

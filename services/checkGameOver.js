@@ -1,15 +1,27 @@
 export function checkGameOver(gameValues) {
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      if (gameValues[i][j] === 0) {
+  for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 3; col++) {
+      if (gameValues[row][col] === 0) {
         return false;
-      } else if (i != 0 && gameValues[i][j] === gameValues[i - 1][j]) {
+      } else if (
+        row !== 0 &&
+        gameValues[row][col] === gameValues[row - 1][col]
+      ) {
         return false;
-      } else if (i != 3 && gameValues[i][j] === gameValues[i + 1][j]) {
+      } else if (
+        row !== 3 &&
+        gameValues[row][col] === gameValues[row + 1][col]
+      ) {
         return false;
-      } else if (j != 0 && gameValues[i][j] === gameValues[i][j - 1]) {
+      } else if (
+        col !== 0 &&
+        gameValues[row][col] === gameValues[row][col - 1]
+      ) {
         return false;
-      } else if (j != 3 && gameValues[i][j] === gameValues[i][j + 1]) {
+      } else if (
+        col !== 3 &&
+        gameValues[row][col] === gameValues[row][col + 1]
+      ) {
         return false;
       }
     }

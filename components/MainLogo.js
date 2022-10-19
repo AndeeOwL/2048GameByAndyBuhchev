@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Colors } from "./common/Colors";
 import { Fonts } from "./common/Fonts";
 
-function MainLogo(props) {
+function MainLogo() {
   return (
     <View style={styles.logo}>
       <Text style={styles.logoText}>2048</Text>
