@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text } from "react-native";
-import { styleService } from "./service/styleService";
+
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -17,9 +17,10 @@ import Animated, {
   SlideOutRight,
   SlideOutLeft,
 } from "react-native-reanimated";
-import { moveAnimationService } from "./service/moveAnimationService";
+import { moveAnimationService } from "../../services/playGridServices/moveAnimationService";
 import { useEffect, useLayoutEffect } from "react";
-import { Colors } from "../common/Colors";
+import { Colors } from "../../constants/Colors";
+import { styleService } from "../../services/playGridServices/styleService";
 
 function NumberField(props) {
   let isMoved = false;
@@ -222,9 +223,9 @@ export default NumberField;
 
 const styles = StyleSheet.create({
   border: {
+    flex: 1,
     borderColor: Colors.mediumBrown,
     borderWidth: 6,
-    flex: 1,
   },
 
   gridTextContainer: {

@@ -1,16 +1,14 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { Alert, StyleSheet, Text, View } from "react-native";
-import { Colors } from "../components/common/Colors";
-import { Fonts } from "../components/common/Fonts";
+import { StyleSheet, Text, View } from "react-native";
+import { Colors } from "../constants/Colors";
+import { Fonts } from "../constants/Fonts";
 import LoginButtons from "../components/Login/LoginButtons";
 import LoginForm from "../components/Login/LoginForm";
-import MainLogo from "../components/MainLogo";
-import score from "../redux/slices/score";
-import GameScreen from "./GameScreen";
+import Logo from "../components/Logo";
 import LeaderboardScreen from "./LeaderboardScreen";
 import SignUpScreen from "./SignUpScreen";
+import { getLoginIsValidAnduserScore } from "../services/userService";
 
 function LoginScreen() {
   const [username, setUsername] = useState("");
@@ -18,24 +16,13 @@ function LoginScreen() {
   const navigation = useNavigation();
 
   const login = async () => {
-    try {
-      const user = await AsyncStorage.getItem(username);
-      if (user !== null) {
-        const userObj = JSON.parse(user);
-        if (userObj.password === password) {
-          navigation.navigate("GameScreen", {
-            username: username,
-            password: password,
-            score: userObj.score,
-          });
-        } else {
-          Alert.alert("Invalid input", "Invalid password");
-        }
-      } else {
-        Alert.alert("Invalid input", "Invalid username");
-      }
-    } catch (error) {
-      Alert.alert("Invalid input", "Something went wrong try again");
+    const result = await getLoginIsValidAnduserScore(username, password);
+    if (result[0] === true) {
+      navigation.navigate("GameScreen", {
+        username: username,
+        password: password,
+        score: result[1],
+      });
     }
   };
 
@@ -57,7 +44,7 @@ function LoginScreen() {
 
   return (
     <View style={styles.rootContainer}>
-      <MainLogo cStyle={styles.logo} />
+      <Logo logoContainer={styles.logo} logoText={styles.logoText} />
       <Text style={styles.text}>Login to play</Text>
       <LoginForm
         usernameChange={usernameInputHandler}
@@ -79,6 +66,19 @@ const styles = StyleSheet.create({
   text: {
     color: Colors.darkBrown,
     fontSize: Fonts.big,
+    fontWeight: "bold",
+  },
+  logo: {
+    marginTop: 50,
+    marginBottom: 50,
+    backgroundColor: Colors.color1024,
+    width: 150,
+    height: 150,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  logoText: {
+    fontSize: Fonts.extraBig,
     fontWeight: "bold",
   },
 });

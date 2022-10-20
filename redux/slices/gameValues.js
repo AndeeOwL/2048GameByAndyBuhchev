@@ -8,6 +8,12 @@ const initialState = {
     [0, 0, 0, 0],
     [0, 0, 0, 0],
   ],
+  previusBoard: [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
 };
 export const gameValuesSlice = createSlice({
   name: "gameValues",
@@ -36,9 +42,25 @@ export const gameValuesSlice = createSlice({
         [0, 0, 0, 0],
       ];
     },
+    changeBoardState: (state, action) => {
+      state.previusBoard = action.payload;
+    },
+    resetBoardState: (state) => {
+      state.previusBoard = [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+      ];
+    },
   },
 });
 
-export const { updateGameValues, resetGameValues, startGameValues } =
-  gameValuesSlice.actions;
+export const {
+  updateGameValues,
+  resetGameValues,
+  startGameValues,
+  changeBoardState,
+  resetBoardState,
+} = gameValuesSlice.actions;
 export default gameValuesSlice.reducer;

@@ -1,18 +1,14 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { Colors } from "../common/Colors";
-import { Fonts } from "../common/Fonts";
+import { Colors } from "../../constants/Colors";
+import { Fonts } from "../../constants/Fonts";
 
 function LeaderboardList(props) {
   return (
     <ScrollView style={styles.scrollContainer}>
       {props.users.map((user) => (
-        <View key={Math.random().toString()} style={styles.userStatsContainer}>
-          <Text key={Math.random().toString()} style={styles.userStats}>
-            user:{user.username}
-          </Text>
-          <Text key={Math.random().toString()} style={styles.userStats}>
-            score:{user.score}
-          </Text>
+        <View key={user.username} style={styles.userStatsContainer}>
+          <Text style={styles.userStats}>user:{user.username}</Text>
+          <Text style={styles.userStats}>score:{user.score}</Text>
         </View>
       ))}
     </ScrollView>

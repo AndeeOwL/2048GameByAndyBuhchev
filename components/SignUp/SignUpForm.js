@@ -1,6 +1,6 @@
 import { StyleSheet, TextInput, View } from "react-native";
-import { Colors } from "../common/Colors";
-import { Fonts } from "../common/Fonts";
+import { Colors } from "../../constants/Colors";
+import { Fonts } from "../../constants/Fonts";
 
 function SignUpForm(props) {
   return (

@@ -1,19 +1,19 @@
 import { StyleSheet, TextInput, View } from "react-native";
-import { Colors } from "../common/Colors";
-import { Fonts } from "../common/Fonts";
+import { Colors } from "../../constants/Colors";
+import { Fonts } from "../../constants/Fonts";
 
 function LoginForm(props) {
   return (
     <View>
       <TextInput
-        placeholder='username'
         style={styles.inputField}
+        placeholder='username'
         onChangeText={props.usernameChange}
         keyboardType='default'
       />
       <TextInput
-        placeholder='password'
         style={styles.inputField}
+        placeholder='password'
         onChangeText={props.passwordChange}
         keyboardType='default'
       />

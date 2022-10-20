@@ -1,13 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { Alert, StyleSheet, Text, View } from "react-native";
-import { Colors } from "../components/common/Colors";
-import { Fonts } from "../components/common/Fonts";
-import MainLogo from "../components/MainLogo";
-import RegisterButton from "../components/SignUp/RegisterButton";
+import { StyleSheet, Text, View } from "react-native";
+import { Colors } from "../constants/Colors";
+import { Fonts } from "../constants/Fonts";
+import Logo from "../components/Logo";
 import SignUpForm from "../components/SignUp/SignUpForm";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginScreen from "./LoginScreen";
+import Button from "../components/Button";
+import { registerUser, validSignUpCredentials } from "../services/userService";
 
 function SignUpScreen() {
   const [username, setUsername] = useState("");
@@ -17,44 +17,13 @@ function SignUpScreen() {
   const navigation = useNavigation();
 
   const register = async () => {
-    const isUsernameValid = username.length >= 4;
-    const isPasswordValid =
-      password.length >= 8 && password === confirmPassword;
-
-    if (!isUsernameValid) {
-      Alert.alert(
-        "Invalid input",
-        "Username must be 4 or more characters and should not be taken!"
-      );
-      return;
-    }
-    if (!isPasswordValid) {
-      Alert.alert(
-        "Invalid input",
-        "Password must be 8 or more characters and should match confirmed password!"
-      );
-      return;
-    }
-
-    try {
-      const name = await AsyncStorage.getItem(username);
-
-      if (name === null) {
-        await AsyncStorage.setItem(
-          username,
-          JSON.stringify({
-            username: username,
-            password: password,
-            score: 0,
-          })
-        );
+    const isValid = validSignUpCredentials(username, password, confirmPassword);
+    if (isValid) {
+      const isRegistered = await registerUser(username, password);
+      console.log(isRegistered);
+      if (isRegistered) {
         navigation.navigate(LoginScreen);
-      } else {
-        Alert.alert("Invalid input", "Username taken !");
-        return;
-      }
-    } catch (error) {
-      Alert.alert("Invalid input", "Username taken !");
+      } else return;
     }
   };
 
@@ -72,14 +41,18 @@ function SignUpScreen() {
 
   return (
     <View style={styles.rootContainer}>
-      <MainLogo />
+      <Logo logoContainer={styles.logo} logoText={styles.logoText} />
       <Text style={styles.text}>Register</Text>
       <SignUpForm
         usernameChange={usernameInputHandler}
         passwordChange={passwordInputHandler}
         confirmPasswordChange={confirmPasswordInputHandler}
       />
-      <RegisterButton register={register} />
+      <Button
+        textStyle={styles.buttonText}
+        onPress={register}
+        value={"Register"}
+      />
     </View>
   );
 }
@@ -95,6 +68,27 @@ const styles = StyleSheet.create({
   text: {
     color: Colors.darkBrown,
     fontSize: Fonts.big,
+    fontWeight: "bold",
+  },
+  buttonText: {
+    marginHorizontal: 15,
+    padding: 15,
+    backgroundColor: Colors.color8,
+    fontSize: Fonts.medium,
+    fontWeight: "bold",
+    margin: 15,
+  },
+  logo: {
+    marginTop: 50,
+    marginBottom: 50,
+    backgroundColor: Colors.color1024,
+    width: 150,
+    height: 150,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  logoText: {
+    fontSize: Fonts.extraBig,
     fontWeight: "bold",
   },
 });

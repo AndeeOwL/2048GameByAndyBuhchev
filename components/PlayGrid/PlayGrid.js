@@ -1,6 +1,6 @@
 import { StyleSheet, Pressable } from "react-native";
 import { useSelector } from "react-redux";
-import { Colors } from "../common/Colors";
+import { Colors } from "../../constants/Colors";
 import GridRow from "./GridRow";
 
 function PlayGrid() {
@@ -14,7 +14,7 @@ function PlayGrid() {
     <Pressable style={styles.gridContainer}>
       {gameValues.map((rowArr, index) => (
         <GridRow
-          key={Math.random().toString()}
+          key={index}
           rowValues={rowArr}
           steps={steps[index]}
           direction={direction}
@@ -30,7 +30,7 @@ export default PlayGrid;
 
 const styles = StyleSheet.create({
   gridContainer: {
-    flex: 1.5,
+    flex: 1,
     borderRadius: 5,
     backgroundColor: Colors.lightBrown,
     overflow: "hidden",

@@ -1,6 +1,6 @@
 import { Text, StyleSheet } from "react-native";
-import { Colors } from "./common/Colors";
-import { Fonts } from "./common/Fonts";
+import { Colors } from "../constants/Colors";
+import { Fonts } from "../constants/Fonts";
 
 function Tips() {
   return (

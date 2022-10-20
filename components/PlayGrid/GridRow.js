@@ -6,7 +6,7 @@ function GridRow(props) {
     <View style={styles.gridRowContainer}>
       {props.rowValues.map((value, index) => (
         <NumberField
-          key={Math.random().toString()}
+          key={index.toString()}
           value={value}
           steps={props.steps[index]}
           direction={props.direction}
@@ -22,7 +22,7 @@ export default GridRow;
 
 const styles = StyleSheet.create({
   gridRowContainer: {
-    flex: 1,
     flexDirection: "row",
+    flex: 1,
   },
 });

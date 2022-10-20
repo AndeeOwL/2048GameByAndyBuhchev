@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import TopStats from "./Stats/TopStats";
-import TopButtons from "./Buttons/TopButtons";
+import TopButtons from "./TopButtons";
 
 function TopFieldsContainer(props) {
   return (

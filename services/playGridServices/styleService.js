@@ -1,4 +1,4 @@
-import { StylesGlobal } from "../constants/StylesGlobal";
+import { StylesGlobal } from "../../constants/StylesGlobal";
 
 export function styleService(value) {
   switch (value) {

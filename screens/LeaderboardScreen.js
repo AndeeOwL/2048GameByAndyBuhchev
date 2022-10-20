@@ -2,11 +2,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
-import { Colors } from "../components/common/Colors";
-import { Fonts } from "../components/common/Fonts";
+import { Colors } from "../constants/Colors";
+import { Fonts } from "../constants/Fonts";
 import LeaderboardList from "../components/Leaderboard/LeaderboardList";
-import MainLogo from "../components/MainLogo";
 import LoginScreen from "./LoginScreen";
+import Button from "../components/Button";
+import Logo from "../components/Logo";
 
 function LeaderboardScreen() {
   const [loading, setLoading] = useState(false);
@@ -50,14 +51,14 @@ function LeaderboardScreen() {
   } else {
     return (
       <View style={styles.rootContainer}>
-        <MainLogo />
+        <Logo logoContainer={styles.logo} logoText={styles.logoText} />
         <Text style={styles.title}>Leaderboard</Text>
-        <Text style={styles.buttons} onPress={login}>
-          Login
-        </Text>
-        <Text style={styles.buttons} onPress={getAllKeys}>
-          Load Leaderboard
-        </Text>
+        <Button textStyle={styles.buttons} onPress={login} value={"Login"} />
+        <Button
+          textStyle={styles.buttons}
+          onPress={getAllKeys}
+          value={"Load Leaderboard"}
+        />
         <LeaderboardList users={users} />
       </View>
     );
@@ -88,6 +89,19 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: Colors.color8,
     fontSize: Fonts.small,
+    fontWeight: "bold",
+  },
+  logo: {
+    marginTop: 50,
+    marginBottom: 50,
+    backgroundColor: Colors.color1024,
+    width: 150,
+    height: 150,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  logoText: {
+    fontSize: Fonts.extraBig,
     fontWeight: "bold",
   },
 });

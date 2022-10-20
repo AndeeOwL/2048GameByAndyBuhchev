@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../common/Colors";
-import { Fonts } from "../../common/Fonts";
+import { Colors } from "./Colors";
+import { Fonts } from "./Fonts";
 
 const StylesGlobal = StyleSheet.create({
   gridTextContainerIfNumberIs0: {},

@@ -1,11 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, View } from "react-native";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { useSelector } from "react-redux";
-import { Colors } from "../components/common/Colors";
-import { Fonts } from "../components/common/Fonts";
-import Button from "../components/Header/Buttons/Button";
+import Button from "../components/Button";
 import PlayGrid from "../components/PlayGrid/PlayGrid";
+import { Colors } from "../constants/Colors";
+import { Fonts } from "../constants/Fonts";
 
 function RetryScreen({ route }) {
   const { score } = useSelector((state) => state.score);
@@ -33,11 +32,20 @@ function RetryScreen({ route }) {
         </Text>
       </View>
       <PlayGrid gameValues={gameValues} />
-
-      <Pressable style={styles.bottomButtonsContainer}>
-        <Button onPress={onPlayAgainPress} value={"Play Again"} />
-        <Button onPress={onUndoPress} value={"Undo"} />
-      </Pressable>
+      <View style={styles.bottomButtonsContainer}>
+        <Button
+          buttonStyle={styles.bottomButtonsContainer}
+          textStyle={styles.buttonText}
+          onPress={onPlayAgainPress}
+          value={"Play Again"}
+        />
+        <Button
+          buttonStyle={styles.bottomButtonsContainer}
+          textStyle={styles.buttonText}
+          onPress={onUndoPress}
+          value={"Undo"}
+        />
+      </View>
     </View>
   );
 }
@@ -65,10 +73,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   bottomButtonsContainer: {
-    flex: 1,
+    marginBottom: 25,
+    marginTop: 50,
     flexDirection: "row",
-    marginBottom: 75,
-    marginTop: 45,
-    paddingVertical: 25,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    padding: 15,
+    backgroundColor: Colors.color8,
+    fontSize: Fonts.medium,
+    fontWeight: "bold",
+    margin: 15,
   },
 });

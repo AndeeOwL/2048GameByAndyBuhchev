@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { View, StyleSheet, Text, Alert } from "react-native";
+import { View, StyleSheet } from "react-native";
 import BottomStats from "../components/BottomStats";
 import Header from "../components/Header/Header";
 import PlayGrid from "../components/PlayGrid/PlayGrid";
@@ -8,16 +8,17 @@ import GestureRecognizer from "react-native-swipe-gestures";
 import { checkGameOver } from "../services/checkGameOver";
 import { bestScoreChecker } from "../services/bestScoreChecker";
 import { useNavigation } from "@react-navigation/native";
-import { Colors } from "../components/common/Colors";
+import { Colors } from "../constants/Colors";
 import { useSelector, useDispatch } from "react-redux";
 import { startGameValues, updateGameValues } from "../redux/slices/gameValues";
 import { startTimer } from "../redux/slices/timer";
 import useReset from "../customHooks/useReset";
 import useSwipe from "../customHooks/useSwipe";
-import { Fonts } from "../components/common/Fonts";
+import { Fonts } from "../constants/Fonts";
 import LoginScreen from "./LoginScreen";
 import LeaderboardScreen from "./LeaderboardScreen";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import Button from "../components/Button";
+import { setScoreForUser } from "../services/userService";
 
 function GameScreen({ route }) {
   const navigation = useNavigation();
@@ -25,10 +26,9 @@ function GameScreen({ route }) {
   const [pressedNew, setPressedNew] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState("");
   const { score } = useSelector((state) => state.score);
-  const { gameValues } = useSelector((state) => state.gameValues);
+  const { gameValues, previusBoard } = useSelector((state) => state.gameValues);
   const { timer } = useSelector((state) => state.timer);
   const { win } = useSelector((state) => state.win);
-  const { previusBoard } = useSelector((state) => state.previusBoardState);
   const dispatch = useDispatch();
   useReset(pressedNew);
   useSwipe(swipeDirection);
@@ -40,16 +40,6 @@ function GameScreen({ route }) {
   const leaderboard = () => {
     navigation.navigate(LeaderboardScreen);
   };
-
-  useLayoutEffect(() => {
-    dispatch(startGameValues());
-  }, []);
-
-  useEffect(() => {
-    setInterval(() => {
-      dispatch(startTimer());
-    }, 1000);
-  }, []);
 
   const onNewPress = () => {
     setLose(false);
@@ -77,22 +67,40 @@ function GameScreen({ route }) {
     setSwipeDirection("RIGHT");
   };
 
-  useEffect(() => {
-    setSwipeDirection("");
-    gameLost();
-  }, [swipeDirection]);
+  const gameLost = () => {
+    let gameover = checkGameOver(gameValues);
+    if (gameover === true) {
+      setLose(true);
+    }
+  };
 
   const config = {
     velocityThreshold: 0.3,
     directionalOffsetThreshold: 80,
   };
 
+  useLayoutEffect(() => {
+    dispatch(startGameValues());
+  }, []);
+
+  // every entering to the screen result in new interval staring (NEED FIX!!!)
+  useEffect(() => {
+    setInterval(() => {
+      dispatch(startTimer());
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    setSwipeDirection("");
+    gameLost();
+  }, [swipeDirection]);
+
   useEffect(() => {
     if (win) {
       let time = timer;
       let isTrue = bestScoreChecker(score, route.params.score);
       if (isTrue === true) {
-        setNewBestScore(score);
+        setScoreForUser(route.params.username, route.params.password, score);
       }
       navigation.navigate("RetryScreen", {
         text: "You Win!",
@@ -104,36 +112,13 @@ function GameScreen({ route }) {
     }
   }, [win]);
 
-  const setNewBestScore = async (score) => {
-    try {
-      await AsyncStorage.setItem(
-        route.params.username,
-        JSON.stringify({
-          username: route.params.username.toString(),
-          password: route.params.password,
-          score: score,
-        })
-      );
-      const object = await AsyncStorage.getItem(route.params.username);
-      console.log(object);
-    } catch (e) {
-      Alert.alert("Something went wrong setting new best score to user");
-    }
-  };
-
-  const gameLost = () => {
-    let gameover = checkGameOver(gameValues);
-    if (gameover === true) {
-      setLose(true);
-    }
-  };
-
+  //GAME LOST TOO EARLY THERE IS STILL MOVES TO DO (NEED FIX!!!)
   useEffect(() => {
     if (lose) {
       let time = timer;
       let isTrue = bestScoreChecker(score, route.params.score);
       if (isTrue === true) {
-        setObjectValue(score);
+        setScoreForUser(route.params.username, route.params.password, score);
       }
       navigation.navigate("RetryScreen", {
         text: "Game Over!",
@@ -166,12 +151,16 @@ function GameScreen({ route }) {
       </GestureRecognizer>
       <BottomStats />
       <View style={styles.buttons}>
-        <Text style={styles.registerbutton} onPress={leaderboard}>
-          Leaderboard
-        </Text>
-        <Text style={styles.registerbutton} onPress={logout}>
-          Logout
-        </Text>
+        <Button
+          textStyle={styles.buttonText}
+          onPress={leaderboard}
+          value={"Leaderboard"}
+        />
+        <Button
+          textStyle={styles.buttonText}
+          onPress={logout}
+          value={"Logout"}
+        />
       </View>
     </View>
   );
@@ -189,7 +178,6 @@ const styles = StyleSheet.create({
     flex: 2,
     borderRadius: 5,
     backgroundColor: Colors.lightBrown,
-
     overflow: "hidden",
   },
   buttons: {
@@ -198,7 +186,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  registerbutton: {
+  buttonText: {
     marginHorizontal: 15,
     padding: 15,
     backgroundColor: Colors.color8,

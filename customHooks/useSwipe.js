@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updateGameValues } from "../redux/slices/gameValues";
-import { addScore } from "../redux/slices/score";
+import { updateGameValues, changeBoardState } from "../redux/slices/gameValues";
+import { setScore } from "../redux/slices/score";
 import { addMoves } from "../redux/slices/moves";
-import { changeBoardState } from "../redux/slices/previusBoardState";
 import { changeDirection } from "../redux/slices/direction";
 import { changeWin } from "../redux/slices/win";
 import { changeIsNew } from "../redux/slices/isNew";
@@ -26,7 +25,7 @@ export default function useSwipe(swipeDirection) {
         result = upMovement([...gameValues], score);
         dispatch(updateGameValues(result[0]));
         dispatch(changeWin(result[1]));
-        dispatch(addScore(result[2]));
+        dispatch(setScore(result[2]));
         dispatch(changeIsNew(result[3]));
         dispatch(changeIsMerged(result[4]));
         dispatch(changeSteps(result[5]));
@@ -38,7 +37,7 @@ export default function useSwipe(swipeDirection) {
         result = downMovement([...gameValues], score);
         dispatch(updateGameValues(result[0]));
         dispatch(changeWin(result[1]));
-        dispatch(addScore(result[2]));
+        dispatch(setScore(result[2]));
         dispatch(changeIsNew(result[3]));
         dispatch(changeIsMerged(result[4]));
         dispatch(changeSteps(result[5]));
@@ -50,7 +49,7 @@ export default function useSwipe(swipeDirection) {
         result = rightMovement([...gameValues], score);
         dispatch(updateGameValues(result[0]));
         dispatch(changeWin(result[1]));
-        dispatch(addScore(result[2]));
+        dispatch(setScore(result[2]));
         dispatch(changeIsNew(result[3]));
         dispatch(changeIsMerged(result[4]));
         dispatch(changeSteps(result[5]));
@@ -62,7 +61,7 @@ export default function useSwipe(swipeDirection) {
         result = leftMovement([...gameValues], score);
         dispatch(updateGameValues(result[0]));
         dispatch(changeWin(result[1]));
-        dispatch(addScore(result[2]));
+        dispatch(setScore(result[2]));
         dispatch(changeIsNew(result[3]));
         dispatch(changeIsMerged(result[4]));
         dispatch(changeSteps(result[5]));

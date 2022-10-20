@@ -1,22 +1,29 @@
-import { StyleSheet, Text, View } from "react-native";
-import { Colors } from "../common/Colors";
-import { Fonts } from "../common/Fonts";
+import { StyleSheet, View } from "react-native";
+import { Colors } from "../../constants/Colors";
+import { Fonts } from "../../constants/Fonts";
+import Button from "../Button";
 
 function LoginButtons(props) {
   return (
     <>
       <View style={styles.buttonsContainer}>
-        <Text style={styles.buttons} onPress={props.login}>
-          Login
-        </Text>
-        <Text style={styles.buttons} onPress={props.signUp}>
-          Sign Up
-        </Text>
+        <Button
+          textStyle={styles.buttons}
+          onPress={props.login}
+          value={"Login"}
+        />
+        <Button
+          textStyle={styles.buttons}
+          onPress={props.signUp}
+          value={"SignUp"}
+        />
       </View>
       <View>
-        <Text style={styles.buttons} onPress={props.leaderboard}>
-          LeaderBoard
-        </Text>
+        <Button
+          textStyle={styles.buttons}
+          onPress={props.leaderboard}
+          value={"Leaderboard"}
+        />
       </View>
     </>
   );

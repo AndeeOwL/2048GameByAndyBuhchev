@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text } from "react-native";
 import { useSelector } from "react-redux";
-import { Colors } from "./common/Colors";
-import { Fonts } from "./common/Fonts";
+import { Colors } from "../constants/Colors";
+import { Fonts } from "../constants/Fonts";
 
 function BottomStats() {
   const { moves } = useSelector((state) => state.moves);
