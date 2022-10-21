@@ -70,7 +70,6 @@ function GameScreen({ route }) {
 
   const gameLost = () => {
     let gameover = checkGameOver(gameValues);
-    console.log(gameover);
     if (gameover === true) {
       setLose(true);
     }
