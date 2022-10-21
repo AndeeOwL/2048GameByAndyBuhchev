@@ -83,11 +83,15 @@ function GameScreen({ route }) {
     dispatch(startGameValues());
   }, []);
 
-  // every entering to the screen result in new interval staring (NEED FIX!!!)
-  useEffect(() => {
-    setInterval(() => {
-      dispatch(startTimer());
-    }, 1000);
+  const addSecond = () => {
+    dispatch(startTimer());
+  };
+
+  useLayoutEffect(() => {
+    let intervalId = setInterval(addSecond, 1000);
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
   useEffect(() => {
