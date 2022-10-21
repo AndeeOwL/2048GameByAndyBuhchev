@@ -11,7 +11,7 @@ describe("Return the right boolean", () => {
       ])
     ).toEqual(true);
   });
-  test("should return false if moves are left", () => {
+  test("should return undefined if moves are posible", () => {
     expect(
       checkGameOver([
         [2, 0, 0, 0],
@@ -19,6 +19,6 @@ describe("Return the right boolean", () => {
         [0, 0, 2, 0],
         [2, 0, 0, 0],
       ])
-    ).toEqual(false);
+    ).toEqual(undefined);
   });
 });

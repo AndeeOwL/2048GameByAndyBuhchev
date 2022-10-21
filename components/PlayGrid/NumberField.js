@@ -1,4 +1,5 @@
 import { StyleSheet, View, Text } from "react-native";
+import { Dimensions } from "react-native";
 
 import Animated, {
   useAnimatedStyle,
@@ -27,6 +28,8 @@ function NumberField(props) {
   let isPoped = false;
   let customGridStyle = styleService(props.value)[0];
   let customTextStyle = styleService(props.value)[1];
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
 
   //SHARED VALUES
   // const offsetX = useSharedValue(0);
@@ -59,11 +62,21 @@ function NumberField(props) {
 
   //   useLayoutEffect(() => {
   //     if (isMoved === true) {
-  //       const move = moveAnimationService(props.direction, props.steps);
-
+  //       const pixelsToMoveHorizontal = windowsWidth (NEED TO BE DEFINED CORRECTLY FOR ANIMATION)
+  //        const pixelsToMoveVertical = windowsHeight (NEED TO BE DEFINED CORRECTLY FOR ANIMATION)
   //       if (props.direction === "LEFT" || props.direction === "RIGHT") {
+  // const move = moveAnimationService(
+  //   props.direction,
+  //   props.steps,
+  //   pixelsToMoveHorizontal
+  // );
   //         offsetX.value = withTiming(move, { duration: 500 });
   //       } else if (props.direction === "UP" || props.direction === "DOWN") {
+  // const move = moveAnimationService(
+  //   props.direction,
+  //   props.steps,
+  //   pixelsToMoveVerical
+  // );
   //         offsetY.value = withTiming(move, { duration: 500 });
   //       }
 

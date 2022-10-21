@@ -1,4 +1,4 @@
-export function moveAnimationService(direction, steps) {
+export function moveAnimationService(direction, steps, pixelsToMove) {
   if (steps === undefined) {
     return 0;
   }
@@ -7,12 +7,12 @@ export function moveAnimationService(direction, steps) {
   }
   switch (direction) {
     case "LEFT":
-      return 89 * -steps;
+      return pixelsToMove * -steps;
     case "RIGHT":
-      return 89 * steps;
+      return pixelsToMove * steps;
     case "UP":
-      return 89 * -steps;
+      return pixelsToMove * -steps;
     case "DOWN":
-      return 89 * steps;
+      return pixelsToMove * steps;
   }
 }
