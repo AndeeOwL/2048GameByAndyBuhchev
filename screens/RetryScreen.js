@@ -10,15 +10,25 @@ function RetryScreen({ route }) {
   const { score } = useSelector((state) => state.score);
   const { moves } = useSelector((state) => state.moves);
   const { gameValues } = useSelector((state) => state.gameValues);
+  const username = route.params.username;
+  const password = route.params.password;
 
   const navigation = useNavigation();
 
   const onPlayAgainPress = () => {
-    navigation.navigate("GameScreen", { score: route.params.score });
+    navigation.navigate("GameScreen", {
+      username: username,
+      password: password,
+      score: route.params.score,
+    });
     route.params.onNew();
   };
   const onUndoPress = () => {
-    navigation.navigate("GameScreen", { score: route.params.score });
+    navigation.navigate("GameScreen", {
+      username: username,
+      password: password,
+      score: route.params.score,
+    });
     route.params.onUndo();
   };
 

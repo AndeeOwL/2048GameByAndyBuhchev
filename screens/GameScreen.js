@@ -42,16 +42,17 @@ function GameScreen({ route }) {
   };
 
   const onNewPress = () => {
-    setLose(false);
     if (pressedNew) {
       setPressedNew(false);
     } else {
       setPressedNew(true);
     }
+    setLose(false);
   };
 
   const onUndoPress = () => {
     dispatch(updateGameValues(previusBoard));
+    setLose(false);
   };
 
   const onSwipeUp = () => {
@@ -69,6 +70,7 @@ function GameScreen({ route }) {
 
   const gameLost = () => {
     let gameover = checkGameOver(gameValues);
+    console.log(gameover);
     if (gameover === true) {
       setLose(true);
     }
@@ -111,12 +113,13 @@ function GameScreen({ route }) {
         time: time,
         onNew: onNewPress,
         onUndo: onUndoPress,
+        username: route.params.username,
+        password: route.params.password,
         score: route.params.score,
       });
     }
   }, [win]);
 
-  //GAME LOST TOO EARLY THERE IS STILL MOVES TO DO (NEED FIX!!!)
   useEffect(() => {
     if (lose) {
       let time = timer;
@@ -129,6 +132,8 @@ function GameScreen({ route }) {
         time: time,
         onNew: onNewPress,
         onUndo: onUndoPress,
+        username: route.params.username,
+        password: route.params.password,
         score: route.params.score,
       });
     }

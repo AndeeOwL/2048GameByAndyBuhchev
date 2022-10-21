@@ -35,6 +35,7 @@ export async function getLoginIsValidAnduserScore(username, password) {
 
 export async function setScoreForUser(username, password, score) {
   try {
+    console.log(username);
     await AsyncStorage.setItem(
       username,
       JSON.stringify({
