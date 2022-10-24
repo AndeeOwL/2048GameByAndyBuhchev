@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests SignUpScreen component renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fae873",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#f5db31",
+        "height": 150,
+        "justifyContent": "center",
+        "marginBottom": 50,
+        "marginTop": 50,
+        "width": 150,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontSize": 35,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      2048
+    </Text>
+  </View>
+  <Text
+    style={
+      Object {
+        "fontSize": 35,
+        "fontWeight": "bold",
+        "marginBottom": 15,
+      }
+    }
+  >
+    Leaderboard
+  </Text>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+  >
+    <Text
+      onPress={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#f5a164",
+          "fontSize": 16,
+          "fontWeight": "bold",
+          "margin": 15,
+          "padding": 15,
+        }
+      }
+    >
+      Login
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+  >
+    <Text
+      onPress={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#f5a164",
+          "fontSize": 16,
+          "fontWeight": "bold",
+          "margin": 15,
+          "padding": 15,
+        }
+      }
+    >
+      Load Leaderboard
+    </Text>
+  </View>
+  <RCTScrollView
+    style={
+      Object {
+        "marginBottom": 50,
+        "marginHorizontal": 15,
+      }
+    }
+  >
+    <View />
+  </RCTScrollView>
+</View>
+`;

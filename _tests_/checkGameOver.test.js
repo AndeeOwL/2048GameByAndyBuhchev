@@ -1,6 +1,6 @@
 import { checkGameOver } from "../services/checkGameOver";
 
-describe("Return the right boolean", () => {
+describe("shoudl return the right output with given gameboard", () => {
   test("should return true if no moves are left", () => {
     expect(
       checkGameOver([

@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests SignUpScreen component renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fae873",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#f5db31",
+        "height": 150,
+        "justifyContent": "center",
+        "marginBottom": 50,
+        "marginTop": 50,
+        "width": 150,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontSize": 35,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      2048
+    </Text>
+  </View>
+  <Text
+    style={
+      Object {
+        "color": "#4d4646",
+        "fontSize": 32,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    Register
+  </Text>
+  <View>
+    <TextInput
+      keyboardType="default"
+      onChangeText={[Function]}
+      placeholder="username"
+      style={
+        Object {
+          "backgroundColor": "#e0dbc1",
+          "fontSize": 26,
+          "height": 50,
+          "margin": 15,
+          "padding": 10,
+          "width": 300,
+        }
+      }
+    />
+    <TextInput
+      keyboardType="default"
+      onChangeText={[Function]}
+      placeholder="password"
+      style={
+        Object {
+          "backgroundColor": "#e0dbc1",
+          "fontSize": 26,
+          "height": 50,
+          "margin": 15,
+          "padding": 10,
+          "width": 300,
+        }
+      }
+    />
+    <TextInput
+      keyboardType="default"
+      onChangeText={[Function]}
+      placeholder="confirm password"
+      style={
+        Object {
+          "backgroundColor": "#e0dbc1",
+          "fontSize": 26,
+          "height": 50,
+          "margin": 15,
+          "padding": 10,
+          "width": 300,
+        }
+      }
+    />
+  </View>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+  >
+    <Text
+      onPress={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#f5a164",
+          "fontSize": 26,
+          "fontWeight": "bold",
+          "margin": 15,
+          "marginHorizontal": 15,
+          "padding": 15,
+        }
+      }
+    >
+      Register
+    </Text>
+  </View>
+</View>
+`;

@@ -1,0 +1,194 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests LoginScreen component renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fae873",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#f5db31",
+        "height": 150,
+        "justifyContent": "center",
+        "marginBottom": 50,
+        "marginTop": 50,
+        "width": 150,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontSize": 35,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      2048
+    </Text>
+  </View>
+  <Text
+    style={
+      Object {
+        "color": "#4d4646",
+        "fontSize": 32,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    Login to play
+  </Text>
+  <View>
+    <TextInput
+      keyboardType="default"
+      onChangeText={[Function]}
+      placeholder="username"
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#ded6d5",
+            "fontSize": 24,
+            "height": 50,
+            "marginBottom": 15,
+            "marginLeft": 15,
+            "marginRight": 15,
+            "marginTop": 15,
+            "paddingBottom": 10,
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "paddingTop": 10,
+            "width": 300,
+          },
+        ]
+      }
+    />
+    <TextInput
+      keyboardType="default"
+      onChangeText={[Function]}
+      placeholder="password"
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#ded6d5",
+            "fontSize": 24,
+            "height": 50,
+            "marginBottom": 15,
+            "marginLeft": 15,
+            "marginRight": 15,
+            "marginTop": 15,
+            "paddingBottom": 10,
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "paddingTop": 10,
+            "width": 300,
+          },
+        ]
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+    >
+      <Text
+        onPress={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#f5a164",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 15,
+            "padding": 15,
+          }
+        }
+      >
+        Login
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+    >
+      <Text
+        onPress={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#f5a164",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 15,
+            "padding": 15,
+          }
+        }
+      >
+        SignUp
+      </Text>
+    </View>
+  </View>
+  <View>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+    >
+      <Text
+        onPress={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#f5a164",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 15,
+            "padding": 15,
+          }
+        }
+      >
+        Leaderboard
+      </Text>
+    </View>
+  </View>
+</View>
+`;
