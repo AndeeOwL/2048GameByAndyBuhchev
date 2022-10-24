@@ -19,8 +19,11 @@ import LoginScreen from "./LoginScreen";
 import LeaderboardScreen from "./LeaderboardScreen";
 import Button from "../components/Button";
 import { setScoreForUser } from "../services/userService";
+import { useTranslation } from "react-i18next";
+import i18n from "../localization/i18n";
 
 function GameScreen({ route }) {
+  const { t, i18n } = useTranslation();
   const navigation = useNavigation();
   const [lose, setLose] = useState(false);
   const [pressedNew, setPressedNew] = useState(false);
@@ -108,7 +111,7 @@ function GameScreen({ route }) {
         setScoreForUser(route.params.username, route.params.password, score);
       }
       navigation.navigate("RetryScreen", {
-        text: "You Win!",
+        text: t("youWin"),
         time: time,
         onNew: onNewPress,
         onUndo: onUndoPress,
@@ -127,7 +130,7 @@ function GameScreen({ route }) {
         setScoreForUser(route.params.username, route.params.password, score);
       }
       navigation.navigate("RetryScreen", {
-        text: "Game Over!",
+        text: t("youLose"),
         time: time,
         onNew: onNewPress,
         onUndo: onUndoPress,
@@ -162,12 +165,12 @@ function GameScreen({ route }) {
         <Button
           textStyle={styles.buttonText}
           onPress={leaderboard}
-          value={"Leaderboard"}
+          value={t("leaderboardButton")}
         />
         <Button
           textStyle={styles.buttonText}
           onPress={logout}
-          value={"Logout"}
+          value={t("logout")}
         />
       </View>
     </View>

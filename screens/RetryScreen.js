@@ -5,8 +5,11 @@ import Button from "../components/Button";
 import PlayGrid from "../components/PlayGrid/PlayGrid";
 import { Colors } from "../constants/Colors";
 import { Fonts } from "../constants/Fonts";
+import { useTranslation } from "react-i18next";
+import i18n from "../localization/i18n";
 
 function RetryScreen({ route }) {
+  const { t, i18n } = useTranslation();
   const { score } = useSelector((state) => state.score);
   const { moves } = useSelector((state) => state.moves);
   const { gameValues } = useSelector((state) => state.gameValues);
@@ -37,8 +40,8 @@ function RetryScreen({ route }) {
       <View style={styles.topTextContainer}>
         <Text style={styles.topTextConditional}>{route.params.text}</Text>
         <Text style={styles.topText}>
-          You earned {score} points with {moves} moves in {route.params.time}{" "}
-          seconds.
+          {t("youEarned")} {score} {t("score")} {t("with")} {moves} {t("moves")}{" "}
+          {t("in")} {route.params.time} {t("seconds")}.
         </Text>
       </View>
       <PlayGrid gameValues={gameValues} />
@@ -47,13 +50,13 @@ function RetryScreen({ route }) {
           buttonStyle={styles.bottomButtonsContainer}
           textStyle={styles.buttonText}
           onPress={onPlayAgainPress}
-          value={"Play Again"}
+          value={t("playAgain")}
         />
         <Button
           buttonStyle={styles.bottomButtonsContainer}
           textStyle={styles.buttonText}
           onPress={onUndoPress}
-          value={"Undo"}
+          value={t("undo")}
         />
       </View>
     </View>

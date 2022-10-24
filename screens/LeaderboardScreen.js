@@ -8,8 +8,11 @@ import LeaderboardList from "../components/Leaderboard/LeaderboardList";
 import LoginScreen from "./LoginScreen";
 import Button from "../components/Button";
 import Logo from "../components/Logo";
+import { useTranslation } from "react-i18next";
+import i18n from "../localization/i18n";
 
 function LeaderboardScreen() {
+  const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const navigation = useNavigation();
@@ -31,7 +34,7 @@ function LeaderboardScreen() {
       });
       setUsers(...[userArr]);
     } catch (e) {
-      Alert.alert("Not found entries", "No users are registered yet");
+      Alert.alert(t("noEntries"), t("noUsersYet"));
     }
     const all = await AsyncStorage.getAllKeys();
     console.log(all);
@@ -52,12 +55,16 @@ function LeaderboardScreen() {
     return (
       <View style={styles.rootContainer}>
         <Logo logoContainer={styles.logo} logoText={styles.logoText} />
-        <Text style={styles.title}>Leaderboard</Text>
-        <Button textStyle={styles.buttons} onPress={login} value={"Login"} />
+        <Text style={styles.title}>{t("leaderboardButton")}</Text>
+        <Button
+          textStyle={styles.buttons}
+          onPress={login}
+          value={t("loginButton")}
+        />
         <Button
           textStyle={styles.buttons}
           onPress={getAllKeys}
-          value={"Load Leaderboard"}
+          value={t("loadLeaderboard")}
         />
         <LeaderboardList users={users} />
       </View>

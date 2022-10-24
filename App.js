@@ -9,6 +9,7 @@ import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import LeaderboardScreen from "./screens/LeaderboardScreen";
 import { LogBox } from "react-native";
+import i18n from "./localization/i18n";
 
 const Stack = createStackNavigator();
 

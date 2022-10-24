@@ -1,14 +1,17 @@
 import { StyleSheet, View } from "react-native";
 import { useSelector } from "react-redux";
 import Stat from "./Stat";
+import { useTranslation } from "react-i18next";
+import i18n from "../../../localization/i18n";
 
 function TopStats(props) {
+  const { t, i18n } = useTranslation();
   const { score } = useSelector((state) => state.score);
 
   return (
     <View style={styles.topStatsContainer}>
-      <Stat text={"SCORE"} value={score} />
-      <Stat text={"BEST"} value={props.bestScore} />
+      <Stat text={t("score")} value={score} />
+      <Stat text={t("best")} value={props.bestScore} />
     </View>
   );
 }

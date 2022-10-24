@@ -8,8 +8,11 @@ import SignUpForm from "../components/SignUp/SignUpForm";
 import LoginScreen from "./LoginScreen";
 import Button from "../components/Button";
 import { registerUser, validSignUpCredentials } from "../services/userService";
+import { useTranslation } from "react-i18next";
+import i18n from "../localization/i18n";
 
 function SignUpScreen() {
+  const { t, i18n } = useTranslation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -17,9 +20,20 @@ function SignUpScreen() {
   const navigation = useNavigation();
 
   const register = async () => {
-    const isValid = validSignUpCredentials(username, password, confirmPassword);
+    const isValid = validSignUpCredentials(
+      username,
+      password,
+      confirmPassword,
+      t("signUpUsernameError"),
+      t("signUpPasswordError")
+    );
     if (isValid) {
-      const isRegistered = await registerUser(username, password);
+      const isRegistered = await registerUser(
+        username,
+        password,
+        t("usernameTaken"),
+        t("globalError")
+      );
       console.log(isRegistered);
       if (isRegistered) {
         navigation.navigate(LoginScreen);
@@ -42,7 +56,7 @@ function SignUpScreen() {
   return (
     <View style={styles.rootContainer}>
       <Logo logoContainer={styles.logo} logoText={styles.logoText} />
-      <Text style={styles.text}>Register</Text>
+      <Text style={styles.text}>{t("register")}</Text>
       <SignUpForm
         usernameChange={usernameInputHandler}
         passwordChange={passwordInputHandler}
@@ -51,7 +65,7 @@ function SignUpScreen() {
       <Button
         textStyle={styles.buttonText}
         onPress={register}
-        value={"Register"}
+        value={t("register")}
       />
     </View>
   );

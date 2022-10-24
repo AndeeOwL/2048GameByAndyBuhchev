@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 
-export async function getUser(username) {
+export async function getUser(username, globalError) {
   try {
     const user = await AsyncStorage.getItem(username);
     if (user !== null) {
@@ -11,29 +11,35 @@ export async function getUser(username) {
       return null;
     }
   } catch (error) {
-    Alert.alert("Something went wrong try again");
+    Alert.alert(globalError);
   }
 }
 
-export async function getLoginIsValidAnduserScore(username, password) {
+export async function getLoginIsValidAnduserScore(
+  username,
+  password,
+  errorUser,
+  errorPass,
+  globalError
+) {
   let isValid = false;
   let score = 0;
 
-  const user = await getUser(username);
+  const user = await getUser(username, globalError);
   if (user !== null) {
     if (user.password === password) {
       isValid = true;
       score = user.score;
     } else {
-      Alert.alert("Invalid password");
+      Alert.alert(errorPass);
     }
   } else {
-    Alert.alert("Invalid username");
+    Alert.alert(errorUser);
   }
   return [isValid, score];
 }
 
-export async function setScoreForUser(username, password, score) {
+export async function setScoreForUser(username, password, score, errorScore) {
   try {
     console.log(username);
     await AsyncStorage.setItem(
@@ -47,30 +53,37 @@ export async function setScoreForUser(username, password, score) {
     const object = await AsyncStorage.getItem(username);
     console.log(object);
   } catch (e) {
-    Alert.alert("Something went wrong setting new best score to user");
+    Alert.alert(errorScore);
   }
 }
 
-export function validSignUpCredentials(username, password, confirmPassword) {
+export function validSignUpCredentials(
+  username,
+  password,
+  confirmPassword,
+  errorUser,
+  errorPass
+) {
   const isUsernameValid = username.length >= 3 && username.length <= 10;
   const isPasswordValid = password.length >= 8 && password === confirmPassword;
 
   if (!isUsernameValid) {
-    Alert.alert(
-      "Username must be between 3 and 10 characters and should not be taken!"
-    );
+    Alert.alert(errorUser);
     return false;
   }
   if (!isPasswordValid) {
-    Alert.alert(
-      "Password must be 8 or more characters and should match confirmed password!"
-    );
+    Alert.alert(errorPass);
     return false;
   }
   return true;
 }
 
-export async function registerUser(username, password) {
+export async function registerUser(
+  username,
+  password,
+  usernameTaken,
+  globalError
+) {
   try {
     const name = await AsyncStorage.getItem(username);
     if (name === null) {
@@ -84,10 +97,10 @@ export async function registerUser(username, password) {
       );
       return true;
     } else {
-      Alert.alert("Username taken !");
+      Alert.alert(usernameTaken);
       return false;
     }
   } catch (error) {
-    Alert.alert("Something went wrong,try again");
+    Alert.alert(globalError);
   }
 }
