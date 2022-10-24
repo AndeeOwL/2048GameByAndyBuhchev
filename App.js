@@ -10,6 +10,7 @@ import SignUpScreen from "./screens/SignUpScreen";
 import LeaderboardScreen from "./screens/LeaderboardScreen";
 import { LogBox } from "react-native";
 import i18n from "./localization/i18n";
+import { Colors } from "./constants/Colors";
 
 const Stack = createStackNavigator();
 
@@ -54,8 +55,16 @@ export default function App() {
               component={SignUpScreen}
               options={{
                 headerShown: true,
-                headerTitle: "Sign Up",
+                headerTitle: "",
                 animationEnabled: false,
+                headerStyle: {
+                  backgroundColor: Colors.color1024,
+                },
+                headerTintColor: "black",
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+                headerBackTitleVisible: false,
               }}
             />
             <Stack.Screen
@@ -63,8 +72,16 @@ export default function App() {
               component={LeaderboardScreen}
               options={{
                 headerShown: true,
-                headerTitle: "Leaderboard",
+                headerTitle: "",
                 animationEnabled: false,
+                headerStyle: {
+                  backgroundColor: Colors.color1024,
+                },
+                headerTintColor: "black",
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+                headerBackTitleVisible: false,
               }}
             />
           </Stack.Navigator>
