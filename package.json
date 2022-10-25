@@ -50,5 +50,8 @@
     "@testing-library/jest-native": "^5.1.2",
     "@testing-library/react-native": "^11.3.0"
   },
+  "transform": {
+    "\\.js$": "<rootDir>/node_modules/babel-jest"
+  },
   "private": true
 }

@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../constants/Colors";
 import { Fonts } from "../constants/Fonts";
 import LoginButtons from "../components/Login/LoginButtons";
@@ -11,7 +11,7 @@ import SignUpScreen from "./SignUpScreen";
 import { getLoginIsValidAnduserScore } from "../services/userService";
 import { useTranslation } from "react-i18next";
 import i18n from "../localization/i18n";
-import ToggleSwitch from "rn-toggle-switch";
+//import ToggleSwitch from "rn-toggle-switch";
 
 function LoginScreen() {
   const { t, i18n } = useTranslation();
@@ -61,7 +61,21 @@ function LoginScreen() {
         passwordChange={passwordInputHandler}
       />
       <LoginButtons login={login} signUp={signUp} leaderboard={leaderboard} />
-      <ToggleSwitch
+      <View style={styles.languageButtonsContainer}>
+        <Pressable
+          style={styles.languageTextContainer}
+          onPress={() => i18n.changeLanguage("EN")}
+        >
+          <Text style={styles.languageText}>EN</Text>
+        </Pressable>
+        <Pressable
+          style={styles.languageTextContainer}
+          onPress={() => i18n.changeLanguage("BG")}
+        >
+          <Text style={styles.languageText}>BG</Text>
+        </Pressable>
+      </View>
+      {/* <ToggleSwitch
         text={{
           on: i18n.language,
           off: i18n.language,
@@ -87,7 +101,7 @@ function LoginScreen() {
             i18n.changeLanguage("EN");
           }
         }}
-      />
+      /> */}
     </View>
   );
 }
@@ -117,5 +131,19 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: Fonts.extraBig,
     fontWeight: "bold",
+  },
+  languageButtonsContainer: {
+    flexDirection: "row",
+    marginTop: 20,
+  },
+  languageTextContainer: {
+    padding: 25,
+    marginHorizontal: 25,
+    backgroundColor: Colors.color8,
+  },
+  languageText: {
+    fontSize: Fonts.small,
+    fontWeight: "bold",
+    color: "black",
   },
 });
