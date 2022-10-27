@@ -19,4 +19,7 @@ describe("Return the right steps", () => {
   test("should return the right values when direction is RIGHT and steps are valid", () => {
     expect(moveAnimationService("RIGHT", 1, 160)).toEqual(160 * 1);
   });
+  test("should return the right values when direction is LEFT and steps are valid", () => {
+    expect(moveAnimationService("LEFT", 1, 160)).toEqual(-160 * 1);
+  });
 });

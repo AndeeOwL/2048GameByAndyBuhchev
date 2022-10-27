@@ -156,7 +156,20 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,6 +187,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -210,22 +229,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -252,7 +278,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 &nbsp;
-export async function getUser(username) {
+export async function getUser(username, globalError) {
   try {
     const user = await AsyncStorage.getItem(username);
     <span class="missing-if-branch" title="if path not taken" >I</span>if (user !== null) {
@@ -262,29 +288,35 @@ export async function getUser(username) {
       return null;
     }
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    Alert.alert("Something went wrong try again");</span>
+<span class="cstat-no" title="statement not covered" >    Alert.alert(globalError);</span>
   }
 }
 &nbsp;
-export async function getLoginIsValidAnduserScore(username, password) {
+export async function getLoginIsValidAnduserScore(
+  username,
+  password,
+  errorUser,
+  errorPass,
+  globalError
+) {
   let isValid = false;
   let score = 0;
 &nbsp;
-  const user = await getUser(username);
+  const user = await getUser(username, globalError);
   <span class="missing-if-branch" title="if path not taken" >I</span>if (user !== null) {
 <span class="cstat-no" title="statement not covered" >    if (user.password === password) {</span>
 <span class="cstat-no" title="statement not covered" >      isValid = true;</span>
 <span class="cstat-no" title="statement not covered" >      score = user.score;</span>
     } else {
-<span class="cstat-no" title="statement not covered" >      Alert.alert("Invalid password");</span>
+<span class="cstat-no" title="statement not covered" >      Alert.alert(errorPass);</span>
     }
   } else {
-    Alert.alert("Invalid username");
+    Alert.alert(errorUser);
   }
   return [isValid, score];
 }
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >setScoreForUser(</span>username, password, score) {
+export async function <span class="fstat-no" title="function not covered" >setScoreForUser(</span>username, password, score, errorScore) {
 <span class="cstat-no" title="statement not covered" >  try {</span>
 <span class="cstat-no" title="statement not covered" >    console.log(username);</span>
 <span class="cstat-no" title="statement not covered" >    await AsyncStorage.setItem(</span>
@@ -298,30 +330,37 @@ export async function <span class="fstat-no" title="function not covered" >setSc
     const object = <span class="cstat-no" title="statement not covered" >await AsyncStorage.getItem(username);</span>
 <span class="cstat-no" title="statement not covered" >    console.log(object);</span>
   } catch (e) {
-<span class="cstat-no" title="statement not covered" >    Alert.alert("Something went wrong setting new best score to user");</span>
+<span class="cstat-no" title="statement not covered" >    Alert.alert(errorScore);</span>
   }
 }
 &nbsp;
-export function validSignUpCredentials(username, password, confirmPassword) {
+export function validSignUpCredentials(
+  username,
+  password,
+  confirmPassword,
+  errorUser,
+  errorPass
+) {
   const isUsernameValid = username.length &gt;= 3 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >username.length &lt;= 10;</span>
   const isPasswordValid = password.length &gt;= 8 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >password === confirmPassword;</span>
 &nbsp;
   <span class="missing-if-branch" title="else path not taken" >E</span>if (!isUsernameValid) {
-    Alert.alert(
-      "Username must be between 3 and 10 characters and should not be taken!"
-    );
+    Alert.alert(errorUser);
     return false;
   }
 <span class="cstat-no" title="statement not covered" >  if (!isPasswordValid) {</span>
-<span class="cstat-no" title="statement not covered" >    Alert.alert(</span>
-      "Password must be 8 or more characters and should match confirmed password!"
-    );
+<span class="cstat-no" title="statement not covered" >    Alert.alert(errorPass);</span>
 <span class="cstat-no" title="statement not covered" >    return false;</span>
   }
 <span class="cstat-no" title="statement not covered" >  return true;</span>
 }
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >registerUser(</span>username, password) {
+export async function <span class="fstat-no" title="function not covered" >registerUser(</span>
+  username,
+  password,
+  usernameTaken,
+  globalError
+) {
 <span class="cstat-no" title="statement not covered" >  try {</span>
     const name = <span class="cstat-no" title="statement not covered" >await AsyncStorage.getItem(username);</span>
 <span class="cstat-no" title="statement not covered" >    if (name === null) {</span>
@@ -335,11 +374,11 @@ export async function <span class="fstat-no" title="function not covered" >regis
       );
 <span class="cstat-no" title="statement not covered" >      return true;</span>
     } else {
-<span class="cstat-no" title="statement not covered" >      Alert.alert("Username taken !");</span>
+<span class="cstat-no" title="statement not covered" >      Alert.alert(usernameTaken);</span>
 <span class="cstat-no" title="statement not covered" >      return false;</span>
     }
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    Alert.alert("Something went wrong,try again");</span>
+<span class="cstat-no" title="statement not covered" >    Alert.alert(globalError);</span>
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -349,7 +388,7 @@ export async function <span class="fstat-no" title="function not covered" >regis
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-24T11:40:51.601Z
+                at 2022-10-27T10:18:05.438Z
             </div>
         <script src="../prettify.js"></script>
         <script>

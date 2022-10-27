@@ -1,7 +1,8 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { render } from "@testing-library/react-native";
 import { fireEvent } from "@testing-library/react-native/build";
-import { act } from "react-test-renderer";
 import LeaderboardScreen from "../screens/LeaderboardScreen";
+import { getAllKeys } from "../screens/LeaderboardScreen";
 
 const mockedNavigate = jest.fn();
 
@@ -46,5 +47,9 @@ describe("Tests SignUpScreen component", () => {
     const login = getByText("Login");
     fireEvent.press(login);
     expect(mockedNavigate).toHaveBeenCalledTimes(1);
+  });
+  test("Should get all users that are stored", () => {
+    keys = AsyncStorage.getAllKeys();
+    expect(keys === null).toEqual(false);
   });
 });
