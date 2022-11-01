@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { render } from "@testing-library/react-native";
 import { fireEvent } from "@testing-library/react-native/build";
 import LeaderboardScreen from "../screens/LeaderboardScreen";
-import { getAllKeys } from "../screens/LeaderboardScreen";
+import LoginScreen from "../screens/LoginScreen";
 
 const mockedNavigate = jest.fn();
 
@@ -23,9 +23,7 @@ describe("Tests SignUpScreen component", () => {
   });
 
   test("it should render right amount of elements", () => {
-    const { getAllByText, getAllByPlaceholderText } = render(
-      <LeaderboardScreen />
-    );
+    const { getAllByText } = render(<LeaderboardScreen />);
     const logo = getAllByText("2048");
     expect(logo).toHaveLength(1);
     const text = getAllByText("Leaderboard");
@@ -46,8 +44,9 @@ describe("Tests SignUpScreen component", () => {
     const { getByText } = render(<LeaderboardScreen />);
     const login = getByText("Login");
     fireEvent.press(login);
-    expect(mockedNavigate).toHaveBeenCalledTimes(1);
+    expect(mockedNavigate).toHaveBeenCalledWith(LoginScreen);
   });
+
   test("Should get all users that are stored", () => {
     keys = AsyncStorage.getAllKeys();
     expect(keys === null).toEqual(false);

@@ -1,5 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { fireEvent } from "@testing-library/react-native/build";
+import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 
 const mockedNavigate = jest.fn();
@@ -39,16 +40,34 @@ describe("Tests SignUpScreen component", () => {
     const username = getByPlaceholderText("username");
     const password = getByPlaceholderText("password");
     const confirm = getByPlaceholderText("confirm password");
-
     fireEvent.changeText(username, "andrean");
     fireEvent.changeText(password, "12345678");
     fireEvent.changeText(confirm, "12345678");
   });
 
   test("Pressed register with invalid inputs should not navigate", () => {
-    const { getAllByText } = render(<SignUpScreen />);
+    const { getByPlaceholderText, getAllByText } = render(<SignUpScreen />);
+    const username = getByPlaceholderText("username");
+    const password = getByPlaceholderText("password");
+    const confirm = getByPlaceholderText("confirm password");
+    fireEvent.changeText(username, "andrean");
+    fireEvent.changeText(password, "12345678");
+    fireEvent.changeText(confirm, "12345678");
     const register = getAllByText("Register");
     fireEvent.press(register[1]);
     expect(mockedNavigate).toHaveBeenCalledTimes(0);
+  });
+
+  test("Pressed register with valid inputs should navigate", () => {
+    const { getAllByText, getByPlaceholderText } = render(<SignUpScreen />);
+    const register = getAllByText("Register");
+    const username = getByPlaceholderText("username");
+    const password = getByPlaceholderText("password");
+    const confirm = getByPlaceholderText("confirm password");
+    fireEvent.changeText(username, "andrean");
+    fireEvent.changeText(password, "12345678");
+    fireEvent.changeText(confirm, "12345678");
+    fireEvent.press(register[1]);
+    expect(mockedNavigate).toHaveBeenCalledWith(LoginScreen);
   });
 });

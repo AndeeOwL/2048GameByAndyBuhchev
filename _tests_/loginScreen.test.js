@@ -1,6 +1,8 @@
 import { render } from "@testing-library/react-native";
 import { fireEvent } from "@testing-library/react-native/build";
+import LeaderboardScreen from "../screens/LeaderboardScreen";
 import LoginScreen from "../screens/LoginScreen";
+import SignUpScreen from "../screens/SignUpScreen";
 
 const mockedNavigate = jest.fn();
 
@@ -42,7 +44,6 @@ describe("Tests LoginScreen component", () => {
     const { getByPlaceholderText } = render(<LoginScreen />);
     const username = getByPlaceholderText("username");
     const password = getByPlaceholderText("password");
-
     fireEvent.changeText(username, "andrean");
     fireEvent.changeText(password, "12345678");
   });
@@ -58,13 +59,13 @@ describe("Tests LoginScreen component", () => {
     const { getByText } = render(<LoginScreen />);
     const signUp = getByText("SignUp");
     fireEvent.press(signUp);
-    expect(mockedNavigate).toHaveBeenCalledTimes(1);
+    expect(mockedNavigate).toHaveBeenCalledWith(SignUpScreen);
   });
 
   test("Pressed login with invalid inputs should not navigate", () => {
     const { getByText } = render(<LoginScreen />);
     const leaderboard = getByText("Leaderboard");
     fireEvent.press(leaderboard);
-    expect(mockedNavigate).toHaveBeenCalledTimes(2);
+    expect(mockedNavigate).toHaveBeenCalledWith(LeaderboardScreen);
   });
 });
