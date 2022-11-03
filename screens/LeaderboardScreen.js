@@ -1,7 +1,6 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../constants/Colors";
 import { Fonts } from "../constants/Fonts";
 import LeaderboardList from "../components/Leaderboard/LeaderboardList";
@@ -10,6 +9,7 @@ import Button from "../components/Button";
 import Logo from "../components/Logo";
 import { useTranslation } from "react-i18next";
 import i18n from "../localization/i18n";
+import { getLeaderboard, sortUsers } from "../services/leaderboardService";
 
 function LeaderboardScreen() {
   const { t, i18n } = useTranslation();
@@ -21,29 +21,13 @@ function LeaderboardScreen() {
     navigation.navigate(LoginScreen);
   };
 
-  const getAllKeys = async () => {
+  const loadLeaderboard = async () => {
     setLoading(true);
-    let keys = [];
-    let userArr = [];
-    try {
-      keys = await AsyncStorage.getAllKeys();
-      keys.forEach(async (k) => {
-        const usr = await AsyncStorage.getItem(k);
-        const userObject = JSON.parse(usr);
-        userArr.push(userObject);
-      });
-      setUsers(...[userArr]);
-    } catch (e) {
-      Alert.alert(t("noEntries"), t("noUsersYet"));
-    }
-    const all = await AsyncStorage.getAllKeys();
-    console.log(all);
+    const usersResult = await getLeaderboard(t("noEntries"), t("noUsersYet"));
+    const sortedUsers = sortUsers(usersResult);
+    setUsers(sortedUsers);
     setLoading(false);
   };
-
-  users.sort((u1, u2) =>
-    u1.score < u2.score ? 1 : u1.score > u2.score ? -1 : 0
-  );
 
   if (loading) {
     return (
@@ -63,7 +47,7 @@ function LeaderboardScreen() {
         />
         <Button
           textStyle={styles.buttons}
-          onPress={getAllKeys}
+          onPress={loadLeaderboard}
           value={t("loadLeaderboard")}
         />
         <LeaderboardList users={users} />

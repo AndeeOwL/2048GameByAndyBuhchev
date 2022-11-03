@@ -106,8 +106,8 @@ function GameScreen({ route }) {
   useEffect(() => {
     if (win) {
       let time = timer;
-      let isTrue = bestScoreChecker(score, route.params.score);
-      if (isTrue === true) {
+      let bestScoreHasImproved = bestScoreChecker(score, route.params.score);
+      if (bestScoreHasImproved) {
         setScoreForUser(route.params.username, route.params.password, score);
       }
       navigation.navigate("RetryScreen", {
@@ -125,8 +125,8 @@ function GameScreen({ route }) {
   useEffect(() => {
     if (lose) {
       let time = timer;
-      let isTrue = bestScoreChecker(score, route.params.score);
-      if (isTrue === true) {
+      let bestScoreHasImproved = bestScoreChecker(score, route.params.score);
+      if (bestScoreHasImproved) {
         setScoreForUser(route.params.username, route.params.password, score);
       }
       navigation.navigate("RetryScreen", {
