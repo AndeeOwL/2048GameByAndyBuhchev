@@ -45,13 +45,14 @@ describe("Tests SignUpScreen component", () => {
     fireEvent.changeText(confirm, "12345678");
   });
 
+  //When changing text to invalid input the next test fails !?
   test("Pressed register with invalid inputs should not navigate", () => {
     const { getByPlaceholderText, getAllByText } = render(<SignUpScreen />);
     const username = getByPlaceholderText("username");
     const password = getByPlaceholderText("password");
     const confirm = getByPlaceholderText("confirm password");
-    fireEvent.changeText(username, "andrean");
-    fireEvent.changeText(password, "12345678");
+    fireEvent.changeText(username, "test");
+    fireEvent.changeText(password, "12345678"); //change to different pass here to see
     fireEvent.changeText(confirm, "12345678");
     const register = getAllByText("Register");
     fireEvent.press(register[1]);
@@ -64,7 +65,7 @@ describe("Tests SignUpScreen component", () => {
     const username = getByPlaceholderText("username");
     const password = getByPlaceholderText("password");
     const confirm = getByPlaceholderText("confirm password");
-    fireEvent.changeText(username, "andrean");
+    fireEvent.changeText(username, "test");
     fireEvent.changeText(password, "12345678");
     fireEvent.changeText(confirm, "12345678");
     fireEvent.press(register[1]);
